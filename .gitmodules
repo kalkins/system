@@ -1,0 +1,57 @@
+[submodule "https:/github.com/bogado/file-line"]
+	path = https:/github.com/bogado/file-line
+	url = ./vim/vimfolder/bundle/file-line
+[submodule "https:/github.com/tpope/vim-fugitive"]
+	path = https:/github.com/tpope/vim-fugitive
+	url = ./vim/vimfolder/bundle/fugitive
+[submodule "https:/github.com/cespare/vim-toml.git"]
+	path = https:/github.com/cespare/vim-toml.git
+	url = ./vim/vimfolder/bundle/vim-toml
+[submodule "https:/github.com/scrooloose/nerdtree.git"]
+	path = https:/github.com/scrooloose/nerdtree.git
+	url = ./vim/vimfolder/bundle/nerdtree
+[submodule "https:/github.com/scrooloose/syntastic.git"]
+	path = https:/github.com/scrooloose/syntastic.git
+	url = ./vim/vimfolder/bundle/syntastic
+[submodule "https:/github.com/Shougo/neocomplete.vim"]
+	path = https:/github.com/Shougo/neocomplete.vim
+	url = ./vim/vimfolder/bundle/neocomplete.vim
+[submodule "https:/github.com/vim-scripts/valgrind.vim"]
+	path = https:/github.com/vim-scripts/valgrind.vim
+	url = ./vim/vimfolder/bundle/valgrind.vim
+[submodule "https:/github.com/majutsushi/tagbar"]
+	path = https:/github.com/majutsushi/tagbar
+	url = ./vim/vimfolder/bundle/tagbar
+[submodule "https:/github.com/Shougo/vimproc.vim.git"]
+	path = https:/github.com/Shougo/vimproc.vim.git
+	url = ./vim/vimfolder/bundle/vimproc.vim
+[submodule "https:/github.com/joe-skb7/cscope-maps.git"]
+	path = https:/github.com/joe-skb7/cscope-maps.git
+	url = ./vim/vimfolder/bundle/cscope-maps
+[submodule "https:/github.com/rust-lang/rust.vim.git"]
+	path = https:/github.com/rust-lang/rust.vim.git
+	url = ./vim/vimfolder/bundle/rust.vim
+[submodule "https:/github.com/lokaltog/vim-distinguished.git"]
+	path = https:/github.com/lokaltog/vim-distinguished.git
+	url = ./vim/vimfolder/bundle/vim-distinguished
+[submodule "https:/github.com/osyo-manga/vim-marching.git"]
+	path = https:/github.com/osyo-manga/vim-marching.git
+	url = ./vim/vimfolder/bundle/vim-marching
+[submodule "https:/github.com/jeetsukumaran/vim-buffergator"]
+	path = https:/github.com/jeetsukumaran/vim-buffergator
+	url = ./vim/vimfolder/bundle/buffergator
+[submodule "https:/github.com/tpope/vim-vividchalk"]
+	path = https:/github.com/tpope/vim-vividchalk
+	url = ./vim/vimfolder/bundle/vim-vividchalk
+[submodule "https:/github.com/vim-airline/vim-airline"]
+	path = https:/github.com/vim-airline/vim-airline
+	url = ./vim/vimfolder/bundle/vim-airline
+[submodule "https:/github.com/ctrlpvim/ctrlp.vim"]
+	path = https:/github.com/ctrlpvim/ctrlp.vim
+	url = ./vim/vimfolder/bundle/ctrlp
+[submodule "https:/github.com/olivierverdier/zsh-git-prompt.git"]
+	path = https:/github.com/olivierverdier/zsh-git-prompt.git
+	url = ./zsh/zshfolder/prompts/zsh-git-prompt
+[submodule "https:/github.com/rust-lang/zsh-config.git"]
+	path = https:/github.com/rust-lang/zsh-config.git
+	url = ./zsh/zshfolder/zsh-config

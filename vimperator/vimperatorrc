@@ -1,0 +1,14 @@
+"3.10.1 (created: 2015/08/25 00:41:59)
+
+nnoremap J <C-o>
+nnoremap K <C-i>
+nnoremap L <C-o>
+nnoremap Ø <C-i>
+nnoremap <C-j> gT
+nnoremap <C-k> <C-i>
+nnoremap <C-l> <C-o>
+nnoremap <C-ø> gt
+nnoremap j <Left>
+nnoremap k <Down>
+nnoremap l <Up>
+nnoremap ø <Right>
