@@ -1,0 +1,9 @@
+2016/08/11-13:22:21.152 3877 Reusing MANIFEST /home/sindre/.config/chromium/Default/Session Storage/MANIFEST-000001
+2016/08/11-13:22:21.153 3877 Recovering log #6
+2016/08/11-13:22:21.153 3877 Reusing old log /home/sindre/.config/chromium/Default/Session Storage/000006.log 
+2016/08/11-13:23:57.279 4210 Level-0 table #10: started
+2016/08/11-13:23:57.287 4210 Level-0 table #10: 124795 bytes OK
+2016/08/11-13:23:57.289 4210 Delete type=0 #6
+2016/08/11-13:24:05.254 4210 Level-0 table #12: started
+2016/08/11-13:24:05.260 4210 Level-0 table #12: 60294 bytes OK
+2016/08/11-13:24:05.262 4210 Delete type=0 #9

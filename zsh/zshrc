@@ -18,6 +18,12 @@ PROMPT='%B%~%b$(git_super_status) %# '
 # Set editor
 export EDITOR=vim
 
+export TERMINAL=xfce4-terminal
+
+# Virtualenvwrapper
+export WORKON_HOME=~/env
+source "/usr/bin/virtualenvwrapper.sh"
+
 # Path
 export PATH="$PATH:/home/sindre/bin/:/home/sindre/.vimpkg/bin:/home/sindre/.cargo/bin"
 

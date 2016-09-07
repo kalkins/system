@@ -41,5 +41,7 @@ setxkbmap -option "ctrl:nocaps"
 xss-lock -- slock &
 dropbox &
 nm-applet &
+unclutter &
 
-exec awesome
+#exec awesome
+exec i3

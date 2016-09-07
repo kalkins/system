@@ -1,0 +1,1 @@
+goog.require("tunnelbear.popup.core");

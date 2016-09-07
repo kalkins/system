@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html style="height: 255px; width: 258px;">
+   <head>
+      <link rel="stylesheet" href="../css/plugin.min.css"/>
+      <script src="../js/knockout-min-3-1-0.js" type="text/javascript"></script>
+      <script src="../js/jquery-min-2-1-3.js" type="text/javascript"></script>
+   </head>
+   <body data-bind="css : {'body-mode-normal': viewState() == 'NORMAL', 'body-mode-expanded': viewState() == 'COUNTRY',
+      'body-mode-settings': viewState() == 'PREFERENCES'}">
+      <!--<script type='text/javascript' id='lt_ws' src='http://localhost:53685/socket.io/lighttable/ws.js'></script>-->
+      <div id="app" class="container" data-bind="css: {'loaded' : isLoaded}">
+       
+         <div class="table">
+            <div class="caption medium-row">
+               <img src="../images/logo.png" class="img-top-logo"/>
+               <div data-bind="click: openSettings" id="settings-gear">
+                  <img src="../images/icon_gear.png" class="img-top-settings"></img>
+               </div>
+            </div>
+            <!-- ko if: permissions().error == false -->
+            <div class="table-row medium-row section-border" data-bind="css : {'alernate-row-color': isToggled}">
+               <div class="table-cell left-padding">
+                  <div class="div-status-icon">
+                     <img data-bind="attr: { src: statusIcon }" class="img-status"/>
+                  </div>
+               </div>
+               <div class="table-cell status-cell">
+                  <div class="status-label">
+                     <span data-bind="text: status"></span>
+                  </div>
+               </div>
+               <div class="table-cell">
+                  <div data-bind="click: toggle">
+                     <input type="checkbox" name="toggle" id="toggle" data-bind="checked: isToggled" enabled="false" />
+                     <label for="toggle" data-bind="style: {'opacity': dataAllowed() <= 0? '0.4' : 1} "></label>
+                  </div>
+                  <div  data-bind="css: { 'toggle-box-checked': isToggled, 'toggle-box-unchecked': !isToggled()}, click: toggle" >
+                     <span class="toggle-text" data-bind="text: toggleText" ></span>    
+                  </div>
+               </div>
+            </div>
+            <!-- /ko -->
+         </div>
+        <!-- ko if: permissions().error == false -->
+         <div class="table panel" id="country-combo" data-bind="click: openCountry, visible: dataAllowed() > 0">
+            <div id="change-country-div" class="table-row medium-row">
+               <div class="table-cell left-padding country-label">
+                  <div>
+                     <span data-bind="text: getCountryName(selectedCountry().iso)"></span>
+                  </div>
+               </div>
+               <div class="table-cell">
+                  <div class="country-arrow-div">
+                     <img src="../images/nav_arrow.png" class="img-country"></img>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /ko -->
+         <!-- ko if: permissions().error == false -->
+          <div class="panel" id="map" data-bind="visible: ( (isFullVersion() == true && reviewVM.viewState() == 'HIDDEN')  || (dataAllowed() > 0  && isEmailConfirmed() == true && isTwitterPromo() == false && reviewVM.viewState() == 'HIDDEN'))">
+            <div id="map_origin2" class="map_origin"></div>
+            <div id="map_origin3" class="map_origin"></div>
+            <div id="map_origin" class="map_origin"></div>
+            <div id="map_tunnel"></div>
+            <div id="map_text">
+              <p id="map_text_origin">Your location: <span></span></p>
+              <p id="map_text_tunnel">Browsing privately from: <span></span></p>
+            </div>
+          </div>
+         <!-- /ko -->
+
+         <script type="text/html" id="data-full-template">
+            <div class="panel medium-row">
+                <p id="data_text_unlimited"> Unlimited Data</p>
+            </div>
+         </script>
+         <script type="text/html" id="data-free-template">
+            <div class="medium-row" data-bind="visible: dataAllowed() > 0">
+                <div id="data_bar">
+                    <div id="data_used" data-bind="style: { 'width': dataAllowed() <= 0 ? '4px' : dataAllowed() * 100 / dataCap()+'%' }, css : {'depleted': dataAllowed() <=0 }"></div>
+                </div>
+                <p id="data_text" class="unlimited_div">
+                    <span data-bind="text: (dataAllowed() <= 0 ? 0 : Math.round(dataAllowed()/1024/1024)) + 'MB', css: {'depleted' : dataAllowed() <=0 }"></span> Remaining this month
+                </p>
+            </div>
+            <a data-bind="click: updateAccount, css : {'shimmer': Math.round(dataAllowed()/1024/1024) <= 50}" id="btn_upgrade">Upgrade Your Bear</a>
+         </script>
+         <script type="text/html" id="out-of-data-template">
+            <div class="content_box panel">
+             <div id="out_of_data" class="content_box_margin">
+                <p id="out_of_data_p">Your Little TunnelBear is all tuckered out for <span data-bind="text: currentMonth"></span></p>
+            </div>
+            </div>
+           
+      </script>
+      <script type="text/html" id="email-not-confirmed-template">
+         <div id="email_not_confirmed" class="content_box panel">
+             <p>Get an additional 500MB of FREE data</p>
+             <p id="p_check_email"><strong>Check your email now!</strong></p>
+         </div>
+      </script>
+
+      <script type="text/html" id="review-template">
+         <div id="review" data-bind="with: reviewVM, 
+         css { 'review' : reviewVM.viewState() == 'NORMAL',
+         'review_sad' : reviewVM.viewState() == 'NEGATIVE',
+         'review_happy' : reviewVM.viewState() == 'POSITIVE'}" class="content_box panel">
+            <div data-bind="click: postponeReview, visible: (viewState() == 'NORMAL' || viewState() == 'POSITIVE')" class="banner_close"></div>
+            <div data-bind="click: closeReview, visible: viewState() == 'NEGATIVE'" class="banner_close"></div>
+            
+             <p class="review_text" data-bind="text: 
+             viewState() == 'NORMAL' ? 'Rawr! Enjoying your TunnelBear?' :
+             (viewState() == 'NEGATIVE' ? 'Yikes! Mind telling us what you don\'t like about your Bear?' :
+             reviewQuestion )"></p>
+              <p>
+
+                <div class="button button-left" data-bind="click: openPosReview, visible: viewState() == 'NORMAL'">Yes</div>
+                <div class="button button-left" data-bind="click: openChromeStore, visible: viewState() == 'POSITIVE'">Sure</div>
+                <div class="button button-left" data-bind="click: openHelp, visible: viewState() == 'NEGATIVE'">Yes</div>
+                <div class="button button-right" data-bind="click: openNegReview, visible: viewState() == 'NORMAL'">No</div>
+                <div class="button button-right" data-bind="click: postponeReview, visible: viewState() == 'POSITIVE'">Nah</div>
+                <div class="button button-right" data-bind="click: closeReview, visible: viewState() == 'NEGATIVE'">No</div>
+              </p>   
+         </div>
+      </script>
+
+      <script type="text/html" id="twitter-promo-template">
+         <div id="twitter_promo" class="content_box panel">
+          <div data-bind="click: closeTwitterPromo" id="twitter_close"></div>
+          <p>Tweet for an additional <strong>1GB of data!</strong></p>
+          <p><div class="button" id="twitter_tweet" data-bind="click: tweetNow">Tweet Now!</div></p>
+         </div>
+      </script>
+
+       <script type="text/html" id="error-template">
+         <div id="plugin_issue" class="content_box panel">
+            <img id="plugin_icon" data-bind="attr: {src: permissions().icon.url}"/>
+            <p>Grrrr!? It looks like another browser plugin is trying to control your connection.</p>
+            <p>We recommend you disable <strong data-bind="text: permissions().details"></strong> in your browser <a href="#" data-bind="click: openExtensions">settings</a>.</p>
+         </div>
+      </script>
+
+      <script type="text/html" id="empty-template"></script>
+      <!-- ko if: isLoaded() -->
+     
+          <div data-bind="template : {name: (permissions().error ? 'error-template' : 
+           (dataAllowed() <= 0 && isEmailConfirmed() == true) ? 'out-of-data-template' : 
+           (isTwitterPromo() && isEmailConfirmed() == true ? 'twitter-promo-template' :
+           (reviewVM.viewState() != 'HIDDEN' ? 'review-template' : 
+           (isFullVersion() == false && isEmailConfirmed() == false ? 'email-not-confirmed-template' : 'empty-template' ))))}"></div>
+            <!-- ko if: permissions().error == false -->
+                <div data-bind="template: {name: (isFullVersion() == true) ? 'data-full-template' : 'data-free-template'}"></div>
+            <!-- /ko -->
+      <!-- /ko -->
+
+      <div id="country-div" data-bind="visible: viewState() == 'COUNTRY'">
+         <div class="settings-header">
+            <button class="navigation-button" id="country-done-btn">Done</button>
+            <div class="title-block">
+               <span class="settings-title">Select Country</span>
+            </div>
+         </div>
+         <ul id="country-switcher" data-bind="foreach: countries">
+            <li data-bind="
+               text: getCountryName(iso), 
+               click: function(data, event) { changeCountry(data,event); },
+               attr: { selected : code == $parent.selectedCountry().code ? 'true' : 'false'}"></li>
+         </ul>
+      </div>
+      <div id="settings-div" class="sliding-panel" data-bind="visible: viewState() == 'PREFERENCES'">
+         <h1>Settings</h1>
+         <a id="settings-back-btn">Back</a>
+         <ul class="menu">
+            <li><a data-bind="click: prefHelp">Help&hellip;</a></li>
+            <li><a data-bind="click: prefOpenAccount">Manage Account&hellip;</a></li>
+            <li><a data-bind="click: prefLogout">Log Out</a></li>
+            <!--<li><a data-bind="click: prefFeedback">Send Feedback&hellip;</a></li>-->
+            <li><a data-bind="click: prefReview, text: (reviewText + '&hellip;')"></a></li>
+            <li><a data-bind="click: prefPrivacy">Privacy Policy&hellip;</a></li>
+            <li class="has_submenu"><a id="settings-shortcut-btn" data-bind="click: prefKeyboard">Keyboard Shortcuts</a></li>
+         </ul>
+      </div>
+      <!--data-bind="visible: viewStateSettings() == 'KEYBOARD'"-->
+      <div id="shortcuts-div" class="sliding-panel" data-bind="visible: viewStateSettings() == 'KEYBOARD'">
+         <h1>Shortcuts</h1>
+         <a id="shortcuts-back-btn">Back</a>
+         <ul class="menu">
+            <li class="default-cursor"><strong>ON:</strong> <span class="shortcut-cmd">Cmd</span>+Shift+U</li>
+            <li class="default-cursor shortcut"><strong>OFF:</strong> <span class="shortcut-cmd">Cmd</span>+Shift+U</li>
+            <li class="default-cursor shortcut"><strong>Incognito Tab:</strong> <span class="shortcut-cmd">Cmd</span>+Shift+I</li>
+         </ul>
+      </div>
+      </div>
+      
+      
+      <script src="../js/extras.min.js"></script>  
+      <script src="../../tunnelbear_popup.js"></script>
+      <script src="../js/require-popup.js" type="text/javascript"></script>
+   </body>
+</html>

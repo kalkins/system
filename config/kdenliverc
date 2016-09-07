@@ -1,0 +1,91 @@
+[KFileDialog Settings]
+Recent Files[$e]=Infomøte.mp4,file:$HOME/Documents/Infomøte.mp4
+
+[MainWindow]
+Height 768=745
+State=AAAA/wAAAAD9AAAAAQAAAAIAAAVSAAABxPwBAAAADPsAAAAYAG4AbwB0AGUAcwBfAHcAaQBkAGcAZQB0AAAAAAD/////AAAARgD////7AAAAFgBwAHIAbwBqAGUAYwB0AF8AYgBpAG4BAAAAAAAAAJkAAABYAP////sAAAAOAGwAaQBiAHIAYQByAHkAAAAAAP////8AAABYAP////sAAAAaAGEAdQBkAGkAbwBzAHAAZQBjAHQAcgB1AG0AAAAAAP////8AAAA6AP////wAAACfAAAAwgAAALoA////+gAAAAEBAAAAAvsAAAAeAHQAcgBhAG4AcwBpAHQAaQBvAG4AXwBsAGkAcwB0AQAAAAD/////AAAAVgD////7AAAAFgBlAGYAZgBlAGMAdABfAGwAaQBzAHQBAAAAAP////8AAAC6AP////wAAAFnAAABKAAAAHsA////+gAAAAEBAAAAAvsAAAAeAGMAbABpAHAAXwBwAHIAbwBwAGUAcgB0AGkAZQBzAQAAAAD/////AAAARAD////7AAAAGABlAGYAZgBlAGMAdABfAHMAdABhAGMAawEAAAAA/////wAAAFYA/////AAAApUAAAK9AAABQAD////6AAAAAQEAAAAC+wAAABgAYwBsAGkAcABfAG0AbwBuAGkAdABvAHIBAAAAAP////8AAAFAAP////sAAAAeAHAAcgBvAGoAZQBjAHQAXwBtAG8AbgBpAHQAbwByAQAAAAD/////AAABQAD////7AAAAGAB1AG4AZABvAF8AaABpAHMAdABvAHIAeQAAAAAA/////wAAAEYA////+wAAABYAVgBlAGMAdABvAHIAcwBjAG8AcABlAAAAAAD/////AAABKAD////7AAAAEABXAGEAdgBlAGYAbwByAG0AAAAAAP////8AAACgAP////sAAAAUAFIARwBCACAAUABhAHIAYQBkAGUAAAAAAP////8AAACdAP////sAAAASAEgAaQBzAHQAbwBnAHIAYQBtAAAAAAD/////AAABOQD///8AAAVSAAAAygAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAACAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABgAZQB4AHQAcgBhAFQAbwBvAGwAQgBhAHIBAAACFP////8AAAAAAAAAAA==
+ToolBarsMovable=Disabled
+Width 1366=1362
+
+[Recent Dirs]
+KdenliveClipFolder[$e]=$HOME/Documents/,$HOME/Documents
+
+[Recent Files]
+File1[$e]=$HOME/kdenlive/infomøte.kdenlive
+Name1[$e]=infomøte.kdenlive
+
+[Scope_Histogram]
+autoRefresh=true
+bEnabled=true
+gEnabled=true
+rEnabled=true
+realtime=false
+rec601=false
+sEnabled=false
+yEnabled=true
+
+[Scope_RGB Parade]
+autoRefresh=true
+axis=false
+gradref=false
+paintmode=0
+realtime=false
+
+[Scope_Vectorscope]
+75PBox=false
+autoRefresh=true
+axis=false
+backgroundmode=0
+colorspace_ypbpr=false
+gain=1
+iqlines=false
+paintmode=0
+realtime=false
+
+[Scope_Waveform]
+autoRefresh=true
+paintmode=0
+realtime=false
+rec601=false
+
+[bin]
+treeviewheaders=AAAA/wAAAAAAAAABAAAAAQAAAAABAAAAAAAAAAAAAAADBgAAAAIAAAACAAAAZAAAAAEAAAA4AAAA6QAAAAMBAQABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACFAAAAAQAAAAAAAAAAAAAAAQAAAAAAAABkAAAAAQAAAAAAAAPoAAAAAD8=
+
+[capture]
+decklink_device_found=false
+decklink_extension=mov
+decklink_parameters=vcodec=dnxhd vb=145000k acodec=pcm_s16le threads=%threads
+defaultcapture=1
+grab_extension=mov
+grab_parameters=-crf 25 -vcodec libx264 -preset veryfast -threads 0
+v4l_extension=mpg
+v4l_parameters=qscale=4 ab=192k vcodec=mpeg2video acodec=mp2 threads=%threads
+
+[env]
+defaultimageapp=/usr/bin/gimp
+ffmpegpath[$e]=/usr/bin/ffmpeg
+ffplaypath[$e]=/usr/bin/ffplay
+ffprobepath[$e]=/usr/bin/ffprobe
+mltpath[$e]=/usr/share/mlt/profiles/
+rendererpath[$e]=/bin/melt
+
+[project]
+proxyextension=mpg
+proxyparams=-s 640x480 -g 5 -qscale 6 -ab 128k -vcodec mpeg2video -acodec mp2
+
+[timeline]
+trackheight=59
+
+[unmanaged]
+audiocodecs=comfortnoise,s302m,aac,ac3,ac3_fixed,alac,dca,eac3,flac,g723_1,mp2,mp2fixed,nellymoser,real_144,sonic,sonicls,tta,vorbis,wavpack,wmav1,wmav2,pcm_alaw,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le,pcm_mulaw,pcm_s8,pcm_s8_planar,pcm_s16be,pcm_s16be_planar,pcm_s16le,pcm_s16le_planar,pcm_s24be,pcm_s24daud,pcm_s24le,pcm_s24le_planar,pcm_s32be,pcm_s32le,pcm_s32le_planar,pcm_u8,pcm_u16be,pcm_u16le,pcm_u24be,pcm_u24le,pcm_u32be,pcm_u32le,roq_dpcm,adpcm_adx,g722,g726,adpcm_ima_qt,adpcm_ima_wav,adpcm_ms,adpcm_swf,adpcm_yamaha,libgsm,libgsm_ms,libmp3lame,libopencore_amrnb,libopus,libspeex,libvorbis
+current_profile=/home/sindre/.local/share/kdenlive/profiles/customprofile0
+defaultrescaleheight=180
+monitor_audio=false
+producerslist=pgm,sdl_image,slowmotion,blipflash,count,framebuffer,decklink,xml,xml-string,xml-nogl,qimage,qtext,kdenlivetitle,avformat,avformat-novalidate,abnormal,color,colour,consumer,hold,loader,melt,melt_file,noise,timewarp,tone,pango,pixbuf
+project_display_ratio=1.7777777777777777
+project_fps=29.91147335811767
+supportedformats=a64,ac3,adts,adx,aiff,amr,apng,asf,ass,ast,asf_stream,au,avi,avm2,bit,caf,cavsvideo,crc,dash,data,daud,dirac,dnxhd,dts,dv,eac3,f4v,ffm,ffmetadata,filmstrip,flac,flv,framecrc,framehash,framemd5,g722,g723_1,gif,gsm,gxf,h261,h263,h264,hash,hds,hevc,hls,ico,ilbc,image2,image2pipe,ipod,ircam,ismv,ivf,jacosub,latm,lrc,m4v,md5,matroska,matroska,microdvd,mjpeg,mlp,mmf,mov,mp2,mp3,mp4,mpeg,vcd,mpeg1video,dvd,svcd,mpeg2video,vob,mpegts,mpjpeg,mxf,mxf_d10,mxf_opatom,null,nut,oga,ogg,oma,opus,alaw,mulaw,f64be,f64le,f32be,f32le,s32be,s32le,s24be,s24le,s16be,s16le,s8,u32be,u32le,u24be,u24le,u16be,u16le,u8,psp,rawvideo,rm,roq,rso,rtp,rtp_mpegts,rtsp,sap,segment,stream_segment\\,ssegment,singlejpeg,smjpeg,smoothstreaming,sox,spx,spdif,srt,swf,tee,3g2,3gp,mkvtimestamp_v2,truehd,uncodedframecrc,vc1,vc1test,voc,w64,wav,webm,webm_dash_manifest,webm_chunk,webp,webvtt,wtv,wv,yuv4mpegpipe,alsa,fbdev,oss,pulse,sdl,v4l2
+videocodecs=a64multi,a64multi5,alias_pix,amv,apng,asv1,asv2,avrp,avui,ayuv,bmp,cinepak,cljr,dnxhd,dpx,dvvideo,ffv1,ffvhuff,flashsv,flashsv2,flv,gif,h261,h263,h263p,huffyuv,jpeg2000,jpegls,ljpeg,mjpeg,mpeg1video,mpeg2video,mpeg4,msmpeg4v2,msmpeg4,msvideo1,pam,pbm,pcx,pgm,pgmyuv,png,ppm,prores,prores_aw,prores_ks,qtrle,r10k,r210,rawvideo,roqvideo,rv10,rv20,sgi,snow,sunrast,svq1,targa,tiff,utvideo,v210,v308,v408,v410,vc2,wrapped_avframe,wmv1,wmv2,xbm,xface,xwd,y41p,yuv4,zlib,zmbv,libopenjpeg,libschroedinger,libtheora,libvpx,libvpx-vp9,libwebp_anim,libwebp,libx264,libx264rgb,libx265,libxvid,h264_vaapi,hevc_vaapi,mjpeg_vaapi
+
+[version]
+version=16.04.3
