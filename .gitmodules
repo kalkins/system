@@ -55,3 +55,6 @@
 [submodule "https:/github.com/rust-lang/zsh-config.git"]
 	path = https:/github.com/rust-lang/zsh-config.git
 	url = ./zsh/zshfolder/zsh-config
+[submodule "vim/vimfolder/bundle/vim-unimpaired"]
+	path = vim/vimfolder/bundle/vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
