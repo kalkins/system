@@ -1,1 +1,0 @@
-goog.require("tunnelbear.background.core");

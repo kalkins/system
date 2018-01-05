@@ -1,4 +1,13 @@
-vim/vimfolder/undodir/*
-vimperator/vimperatorfolder/info/default/history-search
-vimperator/vimperatorfolder/info/default/history-command
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+### Vim ###
 *.swp
+
+
+### Packages ###
+packages/vim/dotfiles/.vim/undodir/*
