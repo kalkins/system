@@ -104,6 +104,25 @@ export TERMINAL=xfce4-terminal
 
 export PAGER=vimpager
 
+# Pacman
+pacinstall() {
+    pacaur -S --needed $@
+}
+
+pacsearch() {
+    pacman -Ss $@
+}
+
+pacupdate() {
+    pacaur -Syu
+}
+
+# Pipenv
+alias pipinstall="pipenv install"
+alias pipshell="pipenv shell"
+alias piprun="pipenv run"
+alias pippy="pipenv run python"
+
 # Virtualenvwrapper
 export WORKON_HOME=~/env
 source "/usr/bin/virtualenvwrapper.sh"
