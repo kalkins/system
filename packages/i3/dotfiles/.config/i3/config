@@ -163,8 +163,8 @@ hide_edge_borders both
 # Don't focus by hovering mouse
 focus_follows_mouse no
 
-# Start 1password
-exec --no-startup-id 1pass
+# Set wallpaper
+exec --no-startup-id feh --bg-scale ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
 
 # Open Firefox, switch to workspace 2, and open the terminal
 exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 2; exec xfce4-terminal'
