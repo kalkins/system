@@ -6,10 +6,11 @@ install_commands = {
     'arch': ['sudo', 'pacman', '--needed', '-S'],
     'fedora': ['sudo', 'dnf', 'install'],
     'ubuntu': ['sudo', 'apt', 'install'],
+    'osx': ['brew', 'install'],
 }
 
 # A list of supported distros
-distros = ['arch', 'fedora', 'ubuntu']
+distros = ['arch', 'fedora', 'ubuntu', 'osx']
 
 # The base dependencies necesarry for installation
 common_dependencies = {'stow'}
@@ -17,4 +18,5 @@ main_dependencies = {
     'arch': common_dependencies,
     'fedora': common_dependencies,
     'ubuntu': common_dependencies,
+    'osx': common_dependencies,
 }
