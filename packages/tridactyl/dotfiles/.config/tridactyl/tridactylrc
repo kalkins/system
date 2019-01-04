@@ -4,7 +4,12 @@ bind l scrollline -3
 bind <c-j> tabprev
 bind <c-ø> tabnext
 
-bind <c-k> back
-bind <c-l> forward
+bind <c-l> back
+bind <c-k> forward
+
+unbind <C-f>
+
+set hintfiltermode vimperator-reflow
+set hintnames numeric
 
 set searchengine duckduckgo
