@@ -47,13 +47,13 @@ signal=10
 [memory]
 label=MEM
 separator=false
-interval=30
+interval=5
 
 [memory]
 label=SWAP
 instance=swap
 separator=false
-interval=30
+interval=5
 
 # Disk usage
 #

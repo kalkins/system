@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 DIR="${BLOCK_INSTANCE:-$HOME}"
-ALERT_LOW="${1:-10}" # color will turn red under this value (default: 10%)
 
 df -h -P -l "$DIR" | awk -v alert_low=$ALERT_LOW '
 /\/.*/ {
@@ -33,9 +32,15 @@ df -h -P -l "$DIR" | awk -v alert_low=$ALERT_LOW '
 
 END {
 	gsub(/%$/,"",use)
-	if (100 - use < alert_low) {
+	if (100 - use < 5) {
 		# color
 		print "#FF0000"
+	} else if (100 - use < 20) {
+		# color
+		print "#FFF600"
+	} else {
+		# color
+		print "#00FF00"
 	}
 }
 '
