@@ -105,7 +105,7 @@ export EDITOR=vim
 
 export TERMINAL=xfce4-terminal
 
-export PAGER=vimpager
+export PAGER=less
 
 # Pacman
 pacinstall() {
@@ -127,7 +127,7 @@ alias piprun="pipenv run"
 alias pippy="pipenv run python"
 
 # Virtualenvwrapper
-export WORKON_HOME=~/env
+export WORKON_HOME=~/env/
 source "/usr/bin/virtualenvwrapper.sh"
 
 # Path
@@ -152,3 +152,9 @@ export ANDROID_SDK_ROOT="/home/sindre/Android/Sdk"
 # Android sdk
 export PATH="$PATH:/opt/android-sdk/build-tools/18.1.1/aapt"
 alias aadb=~/Android/Sdk/platform-tools/adb
+
+# Backblaze
+alias b2=backblaze-b2
+
+# Direnv
+eval "$(direnv hook zsh)"
