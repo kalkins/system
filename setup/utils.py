@@ -17,6 +17,7 @@ class Package:
         self.load_setting('custom_setup', False)
         self.load_setting('dotfiles_dir', 'dotfiles')
         self.load_setting('target_dir', os.path.expanduser('~'))
+        self.load_setting('make', False)
 
         try:
             self.load_setting('dependencies')
@@ -56,6 +57,9 @@ class Package:
             setup = self.import_file('setup')
             setup.setup(distro)
         else:
+            if self.make:
+                run_command(['make', '-C', self.path])
+
             run_command(['stow', '-R', '-d', self.path, '-t', self.target_dir, self.dotfiles_dir])
 
 
