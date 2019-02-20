@@ -177,6 +177,9 @@ hide_edge_borders both
 # Don't focus by hovering mouse
 focus_follows_mouse no
 
+# Setup screen configuration
+exec --no-startup-id sh ~/.screenlayout/default.sh
+
 # Set up auto lock on suspend
 exec --no-startup-id xss-lock slock
 
