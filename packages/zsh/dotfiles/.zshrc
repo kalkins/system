@@ -157,7 +157,9 @@ alias aadb=~/Android/Sdk/platform-tools/adb
 alias b2=backblaze-b2
 
 # Direnv
-eval "$(direnv hook zsh)"
+if $(command -v direnv); then
+    eval "$(direnv hook zsh)"
+fi
 
 # Import local config
 if [ -f ~/.zshrc.local ]; then
