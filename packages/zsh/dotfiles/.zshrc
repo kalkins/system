@@ -152,3 +152,8 @@ export ANDROID_SDK_ROOT="/home/sindre/Android/Sdk"
 # Android sdk
 export PATH="$PATH:/opt/android-sdk/build-tools/18.1.1/aapt"
 alias aadb=~/Android/Sdk/platform-tools/adb
+
+# Import local config
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
