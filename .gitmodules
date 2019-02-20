@@ -46,12 +46,12 @@
 [submodule "vim/vimfolder/bundle/ctrlp"]
 	path = packages/vim/dotfiles/.vim/bundle/ctrlp
 	url = https://github.com/ctrlpvim/ctrlp.vim
-[submodule "zsh/zshfolder/prompts/zsh-git-prompt"]
-	path = packages/zsh/dotfiles/.zsh/prompts/zsh-git-prompt
-	url = https://github.com/olivierverdier/zsh-git-prompt.git
-[submodule "zsh/zshfolder/zsh-config"]
-	path = packages/zsh/dotfiles/.zsh/zsh-config
-	url = https://github.com/rust-lang/zsh-config.git
 [submodule "vim/vimfolder/bundle/vim-unimpaired"]
 	path = packages/vim/dotfiles/.vim/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "packages/zsh/dotfiles/.oh-my-zsh"]
+	path = packages/zsh/dotfiles/.oh-my-zsh
+	url = git@github.com:robbyrussell/oh-my-zsh.git
+[submodule "packages/zsh/dotfiles/.oh-my-zsh-custom/themes/powerlevel9k"]
+	path = packages/zsh/dotfiles/.oh-my-zsh-custom/themes/powerlevel9k
+	url = git@github.com:bhilburn/powerlevel9k.git

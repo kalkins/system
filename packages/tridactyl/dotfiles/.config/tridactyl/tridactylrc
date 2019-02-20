@@ -1,0 +1,10 @@
+bind k scrollline 3
+bind l scrollline -3
+
+bind <c-j> tabprev
+bind <c-ø> tabnext
+
+bind <c-k> forward
+bind <c-l> back
+
+set searchengine duckduckgo
