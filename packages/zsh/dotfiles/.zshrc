@@ -10,6 +10,9 @@
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv pyenv virtualenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs root_indicator time)
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="021"
+POWERLEVEL9K_DIR_HOME_BACKGROUND="021"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="021"
 POWERLEVEL9K_MODE="nerdfont-complete"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
@@ -155,3 +158,8 @@ alias b2=backblaze-b2
 
 # Direnv
 eval "$(direnv hook zsh)"
+
+# Import local config
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi

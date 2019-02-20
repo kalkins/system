@@ -11,3 +11,6 @@ __pycache__/
 
 ### Packages ###
 packages/vim/dotfiles/.vim/undodir/*
+
+# Local config files
+*.local

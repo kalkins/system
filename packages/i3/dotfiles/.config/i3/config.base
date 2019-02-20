@@ -117,9 +117,9 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c exec "make -C ~/workspace/system/packages/i3; i3-msg reload"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec "make -C ~/workspace/system/packages/i3; i3-msg restart"
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -158,6 +158,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 
+# Move workspace between monitors
+bindsym $mod+Ctrl+j move workspace to output left
+bindsym $mod+Ctrl+oslash move workspace to output right
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -179,5 +183,4 @@ exec --no-startup-id xss-lock slock
 # Set wallpaper
 exec --no-startup-id feh --bg-scale ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
 
-# Open Firefox, switch to workspace 2, and open the terminal
-exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 2; exec xfce4-terminal'
+exec --no-startup-id i3-msg 'exec enpass; exec firefox; exec xfce4-terminal'

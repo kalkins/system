@@ -5,3 +5,5 @@ dependencies = {
     'fedora': common_deps.union(['i3']),
     'ubuntu': common_deps.union(['i3']),
 }
+
+make = True
