@@ -85,6 +85,7 @@ def get_packages(distro):
             package = Package(os.path.join(package_dir, dir_name))
         except Exception as e:
             print('Encountered exception "{}" in package {}. Skipping'.format(e, dir_name))
+            continue
 
         if distro in package.distros:
             while True:
