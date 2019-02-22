@@ -81,7 +81,11 @@ def get_packages(distro):
         if dir_name in ignore:
             continue
 
-        package = Package(os.path.join(package_dir, dir_name))
+        try:
+            package = Package(os.path.join(package_dir, dir_name))
+        except Exception as e:
+            print('Encountered exception "{}" in package {}. Skipping'.format(e, dir_name))
+
         if distro in package.distros:
             while True:
                 reply = input('Setup {}? Y/n: '.format(dir_name))
