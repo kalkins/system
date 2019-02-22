@@ -5,3 +5,5 @@ dependencies = {
     'fedora': common_deps,
     'ubuntu': common_deps,
 }
+
+make = True
