@@ -9,6 +9,11 @@ install_commands = {
     'osx': ['brew', 'install'],
 }
 
+# The commands to check if a package is installed
+check_installed_commands = {
+    'arch': ['pacman', '-Qi'],
+}
+
 # A list of supported distros
 distros = ['arch', 'fedora', 'ubuntu', 'osx']
 

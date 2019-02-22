@@ -1,16 +1,12 @@
-from functools import reduce
-
 from settings import install_commands
-from utils import get_distro, get_packages, run_command
+from utils import get_distro, get_packages, run_command, get_dependencies
 
 
 def main():
     distro = get_distro()
     print()
     packages = get_packages(distro)
-    dependencies = reduce(lambda x, y: x.union(y),
-                          map(lambda x: x.dependencies[distro], packages),
-                          set())
+    dependencies = get_dependencies(distro, packages)
 
     if dependencies:
         install_command = install_commands[distro] + list(dependencies)
@@ -19,6 +15,9 @@ def main():
         print('Installing packages...')
         print(' '.join(install_command))
         run_command(install_command)
+    else:
+        print()
+        print('No packages to install')
 
     print()
     print('Fetching submodules')

@@ -1,8 +1,9 @@
 import os
 import subprocess
+from functools import reduce
 from importlib import util
 
-from settings import distros, ignore, main_dependencies
+from settings import distros, ignore, main_dependencies, check_installed_commands
 
 MISSING = object()
 
@@ -101,3 +102,21 @@ def get_packages(distro):
 
 def run_command(command):
     subprocess.run(command).check_returncode()
+
+
+def get_dependencies(distro, packages):
+    dependencies = reduce(
+        lambda x, y: x.union(y),
+        map(lambda x: x.dependencies[distro], packages),
+        set()
+    )
+
+    if distro in check_installed_commands:
+        command = check_installed_commands[distro]
+        dependencies = [
+            dependency
+            for dependency in dependencies
+            if subprocess.run(command+[dependency], capture_output=True).returncode != 0
+        ]
+
+    return dependencies
