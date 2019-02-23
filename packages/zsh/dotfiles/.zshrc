@@ -157,7 +157,7 @@ alias aadb=~/Android/Sdk/platform-tools/adb
 alias b2=backblaze-b2
 
 # Direnv
-if $(command -v direnv); then
+if $(command -v direnv 1>/dev/null); then
     eval "$(direnv hook zsh)"
 fi
 
