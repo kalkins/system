@@ -11,16 +11,6 @@ general {
         interval = 1
 }
 
-#order += "ipv6"
-#order += "run_watch DHCP"
-#order += "run_watch VPN"
-order += "wireless _first_"
-#order += "ethernet _first_"
-order += "disk /"
-order += "battery 1"
-order += "load"
-order += "tztime local"
-
 wireless _first_ {
         format_up = "W: (%quality at %essid) %ip"
         format_down = "W: down"

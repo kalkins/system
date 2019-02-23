@@ -176,14 +176,3 @@ hide_edge_borders both
 
 # Don't focus by hovering mouse
 focus_follows_mouse no
-
-# Setup screen configuration
-exec --no-startup-id sh ~/.screenlayout/default.sh
-
-# Set up auto lock on suspend
-exec --no-startup-id xss-lock slock
-
-# Set wallpaper
-exec --no-startup-id feh --bg-scale ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
-
-exec --no-startup-id i3-msg 'exec enpass; exec firefox; exec xfce4-terminal'

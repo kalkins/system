@@ -1,0 +1,12 @@
+# Setup screen configuration
+exec --no-startup-id sh ~/.screenlayout/default.sh
+
+# Set up auto lock on suspend
+exec --no-startup-id xss-lock slock
+
+# Set wallpaper
+exec --no-startup-id feh --bg-scale ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
+
+# Open Firefox, switch to workspace 2, and open the terminal,
+# switch to workspace 10 (0) and open enpass
+exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 0; exec enpass; workspace 2; exec xfce4-terminal'

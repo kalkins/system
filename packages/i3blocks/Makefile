@@ -8,8 +8,10 @@ all: ${CONFIGS}
 ${CONFIGS}: % : %.base %.local
 	cat $^ > $@
 
+# If a local config doesn't exist,
+# copy config.local.example
 %.local:
-	touch $@
+	cp -n $@.example $@
 
 .PHONY: clean
 clean:
