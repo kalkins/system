@@ -4,6 +4,9 @@ exec --no-startup-id sh ~/.screenlayout/default.sh
 # Set up auto lock on suspend
 exec --no-startup-id xss-lock slock
 
+# Start dropbox
+exec --no-startup-id dropbox
+
 # Set wallpaper
 exec --no-startup-id feh --bg-scale ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
 
