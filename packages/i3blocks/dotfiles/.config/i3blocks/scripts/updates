@@ -1,0 +1,39 @@
+#!/bin/sh
+
+TYPE="${BLOCK_INSTANCE:-pac}"
+
+kalu | awk -v type=$TYPE '
+BEGIN {
+    pac=0
+    aur=0
+}
+/updates available/ {
+    pac=$1
+}
+/^AUR/ {
+    aur=$2
+}
+END {
+    if (type == "aur") {
+	total=aur
+    } else {
+	total=pac
+    }
+
+    # Total
+    printf("%d\n", total)
+
+    # Short text
+    printf("%d\n", total)
+
+    # Color
+    if (total < 5)
+	printf("#00FF00\n")
+    else if (total < 10)
+	printf("#FFF600\n")
+    else if (total < 15)
+	printf("#FFAE00\n")
+    else
+	printf("#FF0000\n")
+}
+'

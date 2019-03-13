@@ -101,11 +101,16 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Set editor
-export EDITOR=vim
+#export EDITOR=vim
+# Requires systemctl --user start emacs
+export EDITOR=emacsclient
 
 export TERMINAL=xfce4-terminal
 
 export PAGER=less
+
+# Emacs
+alias e="emacsclient"
 
 # Pacman
 pacinstall() {

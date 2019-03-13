@@ -11,6 +11,18 @@ instance=Master
 interval=once
 signal=10
 
+# Number of packages that can be updated
+[updates]
+label=PAC
+separator=false
+interval=300
+
+[updates]
+label=AUR
+instance=aur
+separator=true
+interval=300
+
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.

@@ -18,48 +18,48 @@ TYPE="${BLOCK_INSTANCE:-mem}"
 
 awk -v type=$TYPE '
 /^MemTotal:/ {
-	mem_total=$2
+    mem_total=$2
 }
 /^MemFree:/ {
-	mem_free=$2
+    mem_free=$2
 }
 /^Buffers:/ {
-	mem_free+=$2
+    mem_free+=$2
 }
 /^Cached:/ {
-	mem_free+=$2
+    mem_free+=$2
 }
 /^SwapTotal:/ {
-	swap_total=$2
+    swap_total=$2
 }
 /^SwapFree:/ {
-	swap_free=$2
+    swap_free=$2
 }
 END {
-	# full text
-	if (type == "swap") {
-	   	total=swap_total
-		free=swap_free
-	} else {
-		total=mem_total
-		free=mem_free
-	}
+    # full text
+    if (type == "swap") {
+	total=swap_total
+	free=swap_free
+    } else {
+	total=mem_total
+	free=mem_free
+    }
 
-	percent = 100*free/total
+    percent = 100*free/total
 
-	printf("%.1fG\n", free/1024/1024)
+    printf("%.1fG\n", free/1024/1024)
 
-	# TODO: short text
-	printf("%d%\n", percent)
+    # Short text
+    printf("%d%\n", percent)
 
-	# TODO: color (if less than X%)
-	if (percent < 10)
-	   	 printf("#FF0000\n")
-	else if (percent < 40)
-	   	 printf("#FFAE00\n")
-	else if (percent < 60)
-	   	 printf("#FFF600\n")
-	else
-	   	 printf("#00FF00\n")
+    # Color (if less than X%)
+    if (percent < 10)
+	printf("#FF0000\n")
+    else if (percent < 40)
+	printf("#FFAE00\n")
+    else if (percent < 60)
+	printf("#FFF600\n")
+    else
+	printf("#00FF00\n")
 }
 ' /proc/meminfo
