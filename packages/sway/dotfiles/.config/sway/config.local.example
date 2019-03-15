@@ -1,0 +1,20 @@
+# Setup screen configuration
+# run swaymsg -t get_outputs to get the name of the monitor
+output <monitor> scale 1.5
+
+# Set up auto lock on suspend
+exec swayidle -w \
+         timeout 300 'swaylock -f -i ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png' \
+         timeout 600 'swaymsg "output * dpms off"' \
+              resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+# Start dropbox
+exec --no-startup-id dropbox
+
+# Set wallpaper
+#exec --no-startup-id feh --bg-scale ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
+
+# Open Firefox, switch to workspace 2, and open the terminal,
+# switch to workspace 10 (0) and open enpass
+exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 0; exec enpass; workspace 2; exec xfce4-terminal'
