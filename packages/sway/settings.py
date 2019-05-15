@@ -1,3 +1,3 @@
-common_deps = {'sway', 'swayidle', 'swaylock'}
+common_deps = {'sway', 'swayidle', 'swaylock', 'playerctl'}
 
 make = True

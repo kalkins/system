@@ -152,9 +152,19 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym $mod+Mod1+l exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym $mod+Mod1+k exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+
+# Media keys
+bindsym $mod+p exec --no-startup-id playerctl play-pause
+bindsym $mod+Mod1+j exec --no-startup-id playerctl previous
+bindsym $mod+Mod1+oslash exec --no-startup-id playerctl next
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Move workspace between monitors
 bindsym $mod+Ctrl+j move workspace to output left
@@ -182,11 +192,11 @@ input * xkb_options "ctrl:nocaps"
 output DP-2 scale 1.5
 
 # Set up lock screen
-exec swayidle -w \
-         timeout 300 'swaylock -f -i ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png' \
-         timeout 600 'swaymsg "output * dpms off"' \
-              resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+#exec swayidle -w \
+#         timeout 300 'swaylock -f -i ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png' \
+#         timeout 600 'swaymsg "output * dpms off"' \
+#              resume 'swaymsg "output * dpms on"' \
+#         before-sleep 'swaylock -f -c 000000'
 
 # Start dropbox
 exec --no-startup-id dropbox
@@ -196,4 +206,4 @@ output "*" background ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhor
 
 # Open Firefox, switch to workspace 2, and open the terminal,
 # switch to workspace 10 (0) and open enpass
-exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 0; exec enpass; workspace 2; exec xfce4-terminal'
+exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 10; exec enpass; workspace 2; exec xfce4-terminal'
