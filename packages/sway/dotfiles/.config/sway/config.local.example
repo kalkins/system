@@ -9,6 +9,9 @@ exec swayidle -w \
               resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
 
+# Lock screen
+bindsym $mod+x exec swaylock -f -u -i ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
+
 # Start dropbox
 exec --no-startup-id dropbox
 
