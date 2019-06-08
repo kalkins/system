@@ -190,6 +190,11 @@ hide_edge_borders both
 # Don't focus by hovering mouse
 focus_follows_mouse no
 
+# Hide cursor after 3 seconds
+seat seat0 {
+     hide_cursor 3000
+}
+
 # Keymap
 input * xkb_layout no
 input * xkb_options "ctrl:nocaps"
