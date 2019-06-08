@@ -3,7 +3,7 @@ ignore = ['__init__.py', '__pycache__']
 
 # The commands to install packages
 install_commands = {
-    'arch': ['sudo', 'pacman', '--needed', '-S'],
+    'arch': ['yay', '--needed', '-S'],
     'fedora': ['sudo', 'dnf', 'install'],
     'ubuntu': ['sudo', 'apt', 'install'],
     'osx': ['brew', 'install'],
