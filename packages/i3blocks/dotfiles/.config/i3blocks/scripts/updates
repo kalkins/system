@@ -2,7 +2,7 @@
 
 TYPE="${BLOCK_INSTANCE:-pac}"
 
-kalu | awk -v type=$TYPE '
+kalu -m | awk -v type=$TYPE '
 BEGIN {
     pac=0
     aur=0

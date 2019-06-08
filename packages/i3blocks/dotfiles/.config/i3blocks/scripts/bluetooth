@@ -1,0 +1,30 @@
+#!/bin/sh
+
+blue_show=$(bluetoothctl -- show)
+blue_info=$(bluetoothctl -- info)
+
+echo "${blue_show}\n${blue_info}" | awk '
+BEGIN {
+    power=0
+    con=0
+}
+/Powered/ {
+    if ($2 == "yes") {
+	power=1
+    }
+}
+/Connected/ {
+    if ($2 == "yes") {
+	con=1
+    }
+}
+END {
+    if (con == 1) {
+	printf("CON\n")
+    } else if (power == 1) {
+	printf("ON\n")
+    } else {
+	printf("OFF\n")
+    }
+}
+'
