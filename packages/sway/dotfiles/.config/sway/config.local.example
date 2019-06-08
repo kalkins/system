@@ -1,3 +1,6 @@
+# Set wallpaper
+output "*" bg "~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png" fill
+
 # Setup screen configuration
 # run swaymsg -t get_outputs to get the name of the monitor
 output <monitor> scale 1.5
@@ -14,9 +17,6 @@ bindsym $mod+x exec swaylock -f -u -i ~/Dropbox/Dokumenter/Wallpapers/Fedora/mar
 
 # Start dropbox
 exec --no-startup-id dropbox
-
-# Set wallpaper
-#exec --no-startup-id feh --bg-scale ~/Dropbox/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
 
 # Open Firefox, switch to workspace 2, and open the terminal,
 # switch to workspace 10 (0) and open enpass

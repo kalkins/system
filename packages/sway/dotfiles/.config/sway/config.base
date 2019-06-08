@@ -184,8 +184,7 @@ bar {
 }
 
 # Give all windows a border of 1px, except at the edges of the screen
-new_window pixel 1
-new_float pixel
+default_border pixel
 hide_edge_borders both
 
 # Don't focus by hovering mouse
