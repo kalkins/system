@@ -19,6 +19,8 @@ BEGIN {
     }
 }
 END {
+    printf(" ")
+
     if (con == 1) {
 	printf("CON\n")
     } else if (power == 1) {

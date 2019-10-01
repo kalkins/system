@@ -1,5 +1,4 @@
 #!/bin/sh
-
 TYPE="${BLOCK_INSTANCE:-pac}"
 
 kalu -m | awk -v type=$TYPE '
@@ -21,10 +20,10 @@ END {
     }
 
     # Total
-    printf("%d\n", total)
+    printf(" %d\n", total)
 
     # Short text
-    printf("%d\n", total)
+    printf(" %d\n", total)
 
     # Color
     if (total < 5)

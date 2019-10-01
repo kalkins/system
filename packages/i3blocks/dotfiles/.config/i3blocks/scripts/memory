@@ -36,6 +36,8 @@ awk -v type=$TYPE '
     swap_free=$2
 }
 END {
+    printf(" ")
+
     # full text
     if (type == "swap") {
 	total=swap_total
