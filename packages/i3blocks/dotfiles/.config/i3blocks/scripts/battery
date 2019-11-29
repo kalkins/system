@@ -2,7 +2,9 @@
 
 DEVICE="${BLOCK_INSTANCE:-battery_BAT0}"
 
-upower -i "/org/freedesktop/UPower/devices/${DEVICE}" | awk '
+DEV_PATH=$(upower -e | grep "${DEVICE}")
+
+upower -i "${DEV_PATH}" | awk '
 BEGIN {
     percentage = 0
     hours = -1
@@ -14,6 +16,8 @@ BEGIN {
 	status = "DIS"
     } else if ($2 == "charging") {
 	status = "CHR"
+    } else if ($2 == "fully-charged") {
+        status = "CHR"
     }
 }
 /time to/ {
