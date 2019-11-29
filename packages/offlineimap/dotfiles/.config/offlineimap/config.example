@@ -1,0 +1,20 @@
+[general]
+accounts = Fastmail
+
+[Account Fastmail]
+localrepository = LocalFastmail
+remoterepository = RemoteFastmail
+autorefresh = 1
+quick = 10
+postsynchook = mu index --maildir ~/mail
+
+[Repository LocalFastmail]
+type = Maildir
+localfolders = ~/mail/fastmail
+
+[Repository RemoteFastmail]
+type = IMAP
+remotehost = imap.fastmail.com
+remoteuser = sindre_stephansen@fastmail.com
+remotepass = # Generate an app password for this
+sslcacertfile = OS-DEFAULT
