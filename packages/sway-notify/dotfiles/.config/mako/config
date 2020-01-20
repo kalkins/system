@@ -1,0 +1,5 @@
+#default-timeout=5000
+
+[app-name=Spotify]
+background-color=#1DB954
+default-timeout=2000
