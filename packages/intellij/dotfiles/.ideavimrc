@@ -1,0 +1,5 @@
+map j <LEFT>
+map k <DOWN>
+map l <UP>
+map ø <RIGHT>
+set ideajoin
