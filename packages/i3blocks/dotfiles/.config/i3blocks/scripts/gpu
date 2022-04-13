@@ -1,0 +1,32 @@
+#!/bin/sh
+
+cat /proc/acpi/bbswitch | awk '
+BEGIN {
+    enabled = -1
+    num = 0
+}
+/ON/ {
+    enabled = 1
+    num = num + 1
+}
+/OFF/ {
+    enabled = 0
+    num = num + 1
+}
+END {
+    if (num == 1 && enabled != -1) {
+	if (enabled == 1) {
+	    printf("  ON\n")
+	    printf("  ON\n")
+	} else {
+	    printf(" OFF\n")
+	    printf(" OFF\n")
+	}
+
+	printf("#00FF00\n")
+    } else {
+	printf("error num=%d, enabled=%d\n", num, enabled)
+	exit 1
+    }
+}
+'
