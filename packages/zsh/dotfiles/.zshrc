@@ -111,6 +111,16 @@ export TERMINAL=xfce4-terminal
 
 export PAGER=less
 
+# Set terminal title
+function set-title() {
+    if [[ -z "$ORIG" ]]; then
+        ORIG=$PS1
+    fi
+    TITLE="\[\e]2;$*\a\]"
+    PS1=${ORIG}${TITLE}
+}
+
+
 # Emacs
 alias e="emacsclient"
 
@@ -147,12 +157,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export XKB_DEFAULT_LAYOUT=no
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
-# Eclipse
-export PATH="$PATH:/home/sindre/workspace/eclipse/tdt4100-2017-master/eclipse"
-
-# added by travis gem
-[ -f /home/sindre/.travis/travis.sh ] && source /home/sindre/.travis/travis.sh
-
 # Android emulator
 export ANDROID_SDK_ROOT="/home/sindre/Android/Sdk"
 
@@ -166,6 +170,11 @@ alias b2=backblaze-b2
 # Direnv
 if $(command -v direnv 1>/dev/null); then
     eval "$(direnv hook zsh)"
+fi
+
+# Zoxide
+if $(command -v zoxide 1>/dev/null); then
+    eval "$(zoxide init zsh)"
 fi
 
 # Import local config
