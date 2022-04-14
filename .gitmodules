@@ -55,3 +55,9 @@
 [submodule "packages/zsh/dotfiles/.oh-my-zsh-custom/themes/powerlevel9k"]
 	path = packages/zsh/dotfiles/.oh-my-zsh-custom/themes/powerlevel9k
 	url = git@github.com:bhilburn/powerlevel9k.git
+[submodule "packages/emacs/dotfiles/.emacs.d"]
+	path = packages/emacs/dotfiles/.emacs.d
+	url = https://github.com/plexus/chemacs2.git
+[submodule "packages/emacs/dotfiles/.emacs-profiles.d/custom"]
+	path = packages/emacs/dotfiles/.emacs-profiles.d/custom
+	url = git@github.com:kalkins/emacs-config.git
