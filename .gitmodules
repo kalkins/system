@@ -61,3 +61,6 @@
 [submodule "packages/emacs/dotfiles/.emacs-profiles.d/custom"]
 	path = packages/emacs/dotfiles/.emacs-profiles.d/custom
 	url = git@github.com:kalkins/emacs-config.git
+[submodule "packages/emacs/dotfiles/.emacs-profiles.d/doom"]
+	path = packages/emacs/dotfiles/.emacs-profiles.d/doom
+	url = https://github.com/hlissner/doom-emacs.git
