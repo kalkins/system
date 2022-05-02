@@ -8,13 +8,24 @@
 	co = checkout
 	new = checkout -b
 	mg = merge --no-ff --no-edit
-    oops = commit --amend --no-edit
-    oneline = log --pretty=oneline --abbrev-commit
-    unstage = reset HEAD --
-    get = "!sh -c \"git checkout --track origin/$1\" -"
+	oops = commit --amend --no-edit
+	oneline = log --pretty=oneline --abbrev-commit
+	unstage = reset HEAD --
+	get = "!sh -c \"git checkout --track origin/$1\" -"
 [color]
 	ui = auto
 [core]
 	autocrlf = input
 [core]
 	pager = less
+
+[includeIf "gitdir:~/workspace/kodeworks/"]
+	   path = ~/.git-kodeworks.conf
+[push]
+	default = simple
+[pull]
+	ff = only
+[init]
+	defaultBranch = master
+[merge]
+	conflictStyle = diff3
