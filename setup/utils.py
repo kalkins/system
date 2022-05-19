@@ -61,7 +61,8 @@ class Package:
             if self.make:
                 run_command(['make', '-C', self.path])
 
-            run_command(['stow', '-R', '-d', self.path, '-t', self.target_dir, self.dotfiles_dir])
+            if self.dotfiles_dir:
+                run_command(['stow', '-R', '-d', self.path, '-t', self.target_dir, self.dotfiles_dir])
 
 
 def get_distro():
