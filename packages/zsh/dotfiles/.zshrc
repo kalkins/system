@@ -174,7 +174,7 @@ fi
 
 # Zoxide
 if $(command -v zoxide 1>/dev/null); then
-    eval "$(zoxide init zsh)"
+    eval "$(zoxide init zsh --cmd cd)"
 fi
 
 # Import local config
