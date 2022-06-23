@@ -144,8 +144,10 @@ alias piprun="pipenv run"
 alias pippy="pipenv run python"
 
 # Virtualenvwrapper
-export WORKON_HOME=~/env/
-source "/usr/bin/virtualenvwrapper.sh"
+if [ -f "/usr/bin/virtualenvwrapper.sh" ]; then
+    export WORKON_HOME=~/env/
+    source "/usr/bin/virtualenvwrapper.sh"
+fi
 
 # Path
 export PATH="$PATH:/home/sindre/bin/:/home/sindre/.vimpkg/bin:/home/sindre/.cargo/bin"
