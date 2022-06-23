@@ -1,1 +1,1 @@
-python3 setup/main.py
+python3 setup/main.py $@

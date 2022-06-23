@@ -65,16 +65,22 @@ class Package:
                 run_command(['stow', '-R', '-d', self.path, '-t', self.target_dir, self.dotfiles_dir])
 
 
-def get_distro():
-    q = 'Select distro: {} or {}? '.format(', '.join(distros[0:-1]), distros[-1])
+def get_distro(selected=None):
+    if selected is None:
+        q = 'Select distro: {} or {}? '.format(', '.join(distros[0:-1]), distros[-1])
 
-    while True:
-        reply = input(q)
-        if reply in distros:
-            return reply
+        while True:
+            reply = input(q)
+            if reply in distros:
+                return reply
+    else:
+        if selected in distros:
+            return selected
+        else:
+            raise RuntimeError(f'Not compatible with distro {selected}')
 
 
-def get_packages(distro):
+def get_packages(distro, selected=None):
     packages = []
     package_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                                'packages')
@@ -90,13 +96,16 @@ def get_packages(distro):
             continue
 
         if distro in package.distros:
-            while True:
-                reply = input('Setup {}? Y/n: '.format(dir_name))
-                if reply in ['', 'y', 'Y']:
-                    packages.append(package)
-                    break
-                elif reply in ['n', 'N']:
-                    break
+            if selected is None:
+                while True:
+                    reply = input('Setup {}? Y/n: '.format(dir_name))
+                    if reply in ['', 'y', 'Y']:
+                        packages.append(package)
+                        break
+                    elif reply in ['n', 'N']:
+                        break
+            elif selected == '*' or dir_name in selected:
+                packages.append(package)
 
     return packages
 
