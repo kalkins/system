@@ -1,4 +1,7 @@
 export TERM="xterm-256color"
+export EDITOR=vim
+export TERMINAL=xfce4-terminal
+export PAGER=less
 
 # Powerlevel 10k
 source ~/.p10k/powerlevel10k.zsh-theme
@@ -11,37 +14,6 @@ source ~/.p10k/powerlevel10k.zsh-theme
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE
 HISTFILE=~/.zsh_history
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set editor
-#export EDITOR=vim
-# Requires systemctl --user start emacs
-export EDITOR=emacsclient
-
-export TERMINAL=xfce4-terminal
-
-export PAGER=less
 
 # Set terminal title
 function set-title() {
