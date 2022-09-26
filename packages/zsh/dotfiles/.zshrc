@@ -24,23 +24,6 @@ function set-title() {
     PS1=${ORIG}${TITLE}
 }
 
-
-# Emacs
-alias e="emacsclient"
-
-# Pacman
-pacinstall() {
-    pacaur -S --needed $@
-}
-
-pacsearch() {
-    pacman -Ss $@
-}
-
-pacupdate() {
-    pacaur -Syu
-}
-
 # Search history with substring and up/down arrows
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
