@@ -49,12 +49,6 @@
 [submodule "vim/vimfolder/bundle/vim-unimpaired"]
 	path = packages/vim/dotfiles/.vim/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "packages/zsh/dotfiles/.oh-my-zsh"]
-	path = packages/zsh/dotfiles/.oh-my-zsh
-	url = git@github.com:robbyrussell/oh-my-zsh.git
-[submodule "packages/zsh/dotfiles/.oh-my-zsh-custom/themes/powerlevel9k"]
-	path = packages/zsh/dotfiles/.oh-my-zsh-custom/themes/powerlevel9k
-	url = git@github.com:bhilburn/powerlevel9k.git
 [submodule "packages/emacs/dotfiles/.emacs.d"]
 	path = packages/emacs/dotfiles/.emacs.d
 	url = https://github.com/plexus/chemacs2.git
