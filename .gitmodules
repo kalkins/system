@@ -64,3 +64,6 @@
 [submodule "packages/emacs/dotfiles/.emacs-profiles.d/doom"]
 	path = packages/emacs/dotfiles/.emacs-profiles.d/doom
 	url = https://github.com/hlissner/doom-emacs.git
+[submodule "packages/zsh/dotfiles/.p10k"]
+	path = packages/zsh/dotfiles/.p10k
+	url = https://github.com/romkatv/powerlevel10k.git
