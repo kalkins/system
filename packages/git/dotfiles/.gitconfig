@@ -23,6 +23,7 @@
 	   path = ~/.git-kodeworks.conf
 [push]
 	default = simple
+	autoSetupRemote = yes
 [pull]
 	ff = only
 [init]
