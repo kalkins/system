@@ -1,6 +1,7 @@
 [user]
 	email = sindre@sindrestephansen.com
 	name = Sindre Stephansen
+        signingkey = 08E11C5FDC7BEF32
 [web]
 	browser = firefox
 [alias]
@@ -30,3 +31,5 @@
 	defaultBranch = master
 [merge]
 	conflictStyle = diff3
+[commit]
+        gpgsign = true
