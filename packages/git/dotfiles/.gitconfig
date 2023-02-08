@@ -1,7 +1,7 @@
 [user]
 	email = sindre@sindrestephansen.com
 	name = Sindre Stephansen
-        signingkey = 08E11C5FDC7BEF32
+    signingkey = B06FC67D17A46ADE
 [web]
 	browser = firefox
 [alias]
