@@ -23,7 +23,7 @@
 [includeIf "gitdir:~/workspace/kodeworks/"]
 	   path = ~/.git-kodeworks.conf
 [push]
-	default = simple
+	default = current
 	autoSetupRemote = yes
 [pull]
 	ff = only
