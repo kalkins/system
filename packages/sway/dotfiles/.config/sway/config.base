@@ -214,3 +214,7 @@ seat seat0 {
 # Keymap
 input * xkb_layout no
 input * xkb_options "ctrl:nocaps"
+
+# Prevent idle while a program is in full screen
+for_window [class="."] inhibit_idle fullscreen
+for_window [app_id="."] inhibit_idle fullscreen
