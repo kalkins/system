@@ -52,13 +52,12 @@ interval=30
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
 [iface]
-#instance=wlan0
 color=#00FF00
 interval=10
 separator=false
 
 [wifi]
-instance=wlp2s0
+instance=wlan0
 interval=10
 min_width=100%
 #separator=false
