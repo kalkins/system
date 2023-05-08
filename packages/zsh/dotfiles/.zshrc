@@ -42,6 +42,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export XKB_DEFAULT_LAYOUT=no
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
+# GPG TTY
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 # Android emulator
 export ANDROID_SDK_ROOT="/home/sindre/Android/Sdk"
 
