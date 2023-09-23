@@ -70,3 +70,6 @@ fi
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
+
+unset SSH_AGENT_PID
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
