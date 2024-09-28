@@ -1,15 +1,27 @@
+" Rebind up and down to page scroll
 bind k scrollline 3
 bind l scrollline -3
 
-bind <c-j> tabprev
-bind <c-ø> tabnext
+" Rebind left and right to next/prev tab
+bind j tabprev
+bind ø tabnext
 
-bind <c-k> forward
-bind <c-l> back
+" Rebind Ctrl up down to back/forwards through history
+bind <C-k> forward
+bind <C-l> back
 
 unbind <C-f>
 
+" Numeric hints instead of characters
 set hintfiltermode vimperator-reflow
 set hintnames numeric
 
+" Search engine
 set searchengine duckduckgo
+
+" Only hint search results on Google and DDG
+bindurl www.google.com f hint -Jc .rc > div > a
+bindurl www.google.com F hint -Jbc .rc > div > a
+
+bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
+bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
