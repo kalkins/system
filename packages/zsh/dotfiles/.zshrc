@@ -72,6 +72,16 @@ if $(command -v gem 1>/dev/null); then
     export PATH="$PATH:$GEM_HOME/bin"
 fi
 
+# CD to real location of a symlink
+function cdf() {
+    cd $(dirname $(readlink -f $1))
+}
+
+# CD to the root of a git repo
+function cdr() {
+    cd $(git rev-parse --show-toplevel)
+}
+
 # Import local config
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
