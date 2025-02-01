@@ -95,6 +95,9 @@ if type helm > /dev/null 2>&1; then
     eval "$(helm completion zsh)"
 fi
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 # Import local config
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
