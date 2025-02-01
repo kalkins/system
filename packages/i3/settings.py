@@ -1,4 +1,4 @@
-common_deps = {'i3status', 'slock', 'dmenu'}
+common_deps = {'i3status', 'slock', 'dmenu', 'feh'}
 
 dependencies = {
     'arch': common_deps.union(['i3-wm']),
