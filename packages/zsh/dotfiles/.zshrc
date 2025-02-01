@@ -15,6 +15,10 @@ HISTSIZE=10000
 SAVEHIST=$HISTSIZE
 HISTFILE=~/.zsh_history
 
+# Completion
+autoload -Uz compinit
+compinit
+
 # Set terminal title
 function set-title() {
     if [[ -z "$ORIG" ]]; then
