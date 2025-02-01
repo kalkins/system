@@ -86,6 +86,15 @@ function cdr() {
     cd $(git rev-parse --show-toplevel)
 }
 
+# Set up completion
+if type k3d > /dev/null 2>&1; then
+    eval "$(k3d completion zsh)"
+fi
+
+if type helm > /dev/null 2>&1; then
+    eval "$(helm completion zsh)"
+fi
+
 # Import local config
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
