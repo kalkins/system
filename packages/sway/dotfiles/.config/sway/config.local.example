@@ -27,9 +27,6 @@ exec swayidle -w \
 # Lock screen
 bindsym $mod+x exec swaylock -f -u -i ~/Nextcloud/Dokumenter/Wallpapers/Fedora/marcolino-Matterhorn.png
 
-# Start dropbox
-exec --no-startup-id dropbox
-
 # Start notification daemon
 exec --no-startup-id mako --config ~/.config/mako/config
 
