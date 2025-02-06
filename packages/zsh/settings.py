@@ -1,3 +1,3 @@
 has_submodules = True
 
-common_deps = {'zsh'}
+common_deps = {'zsh', 'fzf'}
