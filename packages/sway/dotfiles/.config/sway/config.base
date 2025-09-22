@@ -212,7 +212,7 @@ seat seat0 {
 }
 
 # Keymap
-input * xkb_layout no
+input * xkb_layout "no(nodeadkeys)"
 input * xkb_options "ctrl:nocaps"
 
 # Prevent idle while a program is in full screen
