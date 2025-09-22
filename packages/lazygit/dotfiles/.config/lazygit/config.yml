@@ -1,0 +1,26 @@
+keybinding:
+  universal:
+    prevItem-alt: 'l'
+    nextItem-alt: 'k'
+    prevBlock-alt: 'j'
+    nextBlock-alt: 'ø'
+    prevBlock-alt2: '<disabled>'
+    nextBlock-alt2: '<disabled>'
+    prevTab: '<backtab>'
+    nextTab: '<tab>'
+    scrollLeft: 'J'
+    scrollRight: 'Ø'
+    scrollUpMain-alt1: 'L'
+    scrollDownMain-alt1: 'K'
+    optionMenu: 'h'
+    nextScreenMode: '+'
+    prevScreenMode: '\'
+
+  files:
+    toggleTreeView: "'"
+    collapseAll: '-'
+    expandAll: 'æ'
+
+  commits:
+    moveDownCommit: '<c-k>'
+    moveUpCommit: '<c-l>'
