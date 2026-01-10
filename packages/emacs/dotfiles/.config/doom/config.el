@@ -128,3 +128,21 @@
 ;;; h is not used anymore, so it can be the help shortcut
 (map! :n "h" #'help-command)
 
+;; Language config
+
+;;; Format on save
+(setq +format-on-save-enabled-modes
+      '(python-mode
+        rust-mode
+        js2-mode
+        typescript-mode
+        web-mode
+        json-mode
+        yaml-mode
+        dockerfile-mode
+        sql-mode))
+
+;;; Python
+(after! python
+  (set-formatter! 'ruff :modes '(python-mode python-ts-mode)))
+
