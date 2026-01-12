@@ -52,11 +52,8 @@
 [submodule "packages/emacs/dotfiles/.emacs.d"]
 	path = packages/emacs/dotfiles/.emacs.d
 	url = https://github.com/plexus/chemacs2.git
-[submodule "packages/emacs/dotfiles/.emacs-profiles.d/custom"]
-	path = packages/emacs/dotfiles/.emacs-profiles.d/custom
-	url = git@github.com:kalkins/emacs-config.git
 [submodule "packages/emacs/dotfiles/.emacs-profiles.d/doom"]
-	path = packages/emacs/dotfiles/.emacs-profiles.d/doom
+	path = packages/emacs/dotfiles/.emacs.d
 	url = https://github.com/hlissner/doom-emacs.git
 [submodule "packages/zsh/dotfiles/.p10k"]
 	path = packages/zsh/dotfiles/.p10k

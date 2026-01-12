@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+;; (setq user-full-name "John Doe"
+;;       user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -15,7 +15,7 @@
 ;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
 ;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
+;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
@@ -74,3 +74,90 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Custom config
+
+;; Key mapping
+
+;;; Shift HJKL to JKLØ
+(map! :m "j" #'evil-backward-char
+      :m "k" #'evil-next-visual-line
+      :m "l" #'evil-previous-visual-line
+      :m "ø" #'evil-forward-char)
+
+(map! :map evil-window-map
+      "j" #'evil-window-left
+      "k" #'evil-window-down
+      "l" #'evil-window-up
+      "ø" #'evil-window-right)
+
+(map! :n "C-j" #'evil-window-left
+      :n "C-k" #'evil-window-down
+      :n "C-l" #'evil-window-up
+      :n "C-ø" #'evil-window-right)
+
+(after! evil-collection
+  ;; Define a function that swaps the keys in a given keymap
+  (defun nordic-shift (_mode mode-keymaps &rest _ignored)
+    ;; Translate keys in Normal, Visual, and Motion states
+    (evil-collection-translate-key '(normal motion visual) mode-keymaps
+      "j" "h"  ; Your j acts like the original h (Left)
+      "k" "j"  ; Your k acts like the original j (Down)
+      "l" "k"  ; Your l acts like the original k (Up)
+      "ø" "l"  ; Your ø acts like the original l (Right)
+      )
+
+    (evil-collection-translate-key '(normal motion visual emacs) mode-keymaps
+      (kbd "C-j") (kbd "C-h")
+      (kbd "C-k") (kbd "C-j")
+      (kbd "C-l") (kbd "C-k")
+      (kbd "C-ø") (kbd "C-l")
+      (kbd "C-h") (kbd "C-ø")
+      ))
+
+  ;; Add this function to the hook so it runs for every package evil-collection handles
+  (add-hook 'evil-collection-setup-hook #'nordic-shift))
+
+(after! vertico
+  (map! :map vertico-map
+        "C-j" #'vertico-directory-up    ; Left  (Go up a folder)
+        "C-k" #'vertico-next            ; Down  (Next candidate)
+        "C-l" #'vertico-previous        ; Up    (Previous candidate)
+        "C-ø" #'vertico-insert))        ; Right (Enter folder)
+
+;;; h is not used anymore, so it can be used to loop through line numberings
+(defun my-cycle-line-numbers ()
+  "Cycle through relative, absolute, and no line numbers."
+  (interactive)
+  (let ((state display-line-numbers))
+    (cond
+     ((eq state 'relative)
+      (setq display-line-numbers t)
+      (message "Line numbers: Absolute"))
+     ((eq state t)
+      (setq display-line-numbers nil)
+      (message "Line numbers: None"))
+     (t
+      (setq display-line-numbers 'relative)
+      (message "Line numbers: Relative")))))
+
+(map! :n "h" #'my-cycle-line-numbers)
+
+;; Language config
+
+;;; Format on save
+(setq +format-on-save-enabled-modes
+      '(python-mode
+        rust-mode
+        js2-mode
+        typescript-mode
+        web-mode
+        json-mode
+        yaml-mode
+        dockerfile-mode
+        sql-mode))
+
+;;; Python
+(after! python
+  (set-formatter! 'ruff :modes '(python-mode python-ts-mode)))
+

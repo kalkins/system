@@ -105,3 +105,6 @@ fi
 
 unset SSH_AGENT_PID
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+# Add Doom Emacs to path
+export PATH="$PATH:$HOME/.emacs.d/bin"
