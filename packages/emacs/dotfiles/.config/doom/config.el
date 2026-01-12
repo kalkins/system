@@ -125,8 +125,23 @@
         "C-l" #'vertico-previous        ; Up    (Previous candidate)
         "C-ø" #'vertico-insert))        ; Right (Enter folder)
 
-;;; h is not used anymore, so it can be the help shortcut
-(map! :n "h" #'help-command)
+;;; h is not used anymore, so it can be used to loop through line numberings
+(defun my-cycle-line-numbers ()
+  "Cycle through relative, absolute, and no line numbers."
+  (interactive)
+  (let ((state display-line-numbers))
+    (cond
+     ((eq state 'relative)
+      (setq display-line-numbers t)
+      (message "Line numbers: Absolute"))
+     ((eq state t)
+      (setq display-line-numbers nil)
+      (message "Line numbers: None"))
+     (t
+      (setq display-line-numbers 'relative)
+      (message "Line numbers: Relative")))))
+
+(map! :n "h" #'my-cycle-line-numbers)
 
 ;; Language config
 
