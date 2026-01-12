@@ -22,7 +22,12 @@ def main():
     dependencies = get_dependencies(distro, packages)
 
     if dependencies:
-        install_command = install_commands[distro] + args.yay_flags.split(',') + list(dependencies)
+        install_command = install_commands[distro]
+
+        if args.yay_flags:
+            install_command += args.yay_flags.split(',')
+
+        install_command += list(dependencies)
 
         print()
         print('Installing packages...')
