@@ -24,3 +24,6 @@ keybinding:
   commits:
     moveDownCommit: '<c-k>'
     moveUpCommit: '<c-l>'
+
+git:
+  overrideGpg: true
