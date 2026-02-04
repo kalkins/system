@@ -143,6 +143,14 @@
 
 (map! :n "h" #'my-cycle-line-numbers)
 
+;;; Smartparens
+(after! smartparens
+  (map! :map smartparens-mode-map
+        "M-j" #'sp-forward-barf-sexp
+        "M-ø" #'sp-forward-slurp-sexp
+        "M-k" #'sp-backward-slurp-sexp
+        "M-l" #'sp-backward-barf-sexp))
+
 ;; Language config
 
 ;;; Format on save
