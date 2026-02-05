@@ -169,3 +169,9 @@
 (after! python
   (set-formatter! 'ruff :modes '(python-mode python-ts-mode)))
 
+(after! lsp-mode
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("uv" "run" "pyrefly" "lsp"))
+                    :major-modes '(python-mode python-ts-mode)
+                    :priority 1
+                    :server-id 'uv-pyrefly-lsp)))
