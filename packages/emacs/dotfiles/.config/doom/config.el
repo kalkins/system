@@ -143,6 +143,11 @@
 
 (map! :n "h" #'my-cycle-line-numbers)
 
+(setq display-line-numbers-type 'relative)
+
+;;; Jump to definitions in other window
+(map! :n "gw" #'xref-find-definitions-other-window)
+
 ;;; Smartparens
 (after! smartparens
   (map! :map smartparens-mode-map
@@ -150,6 +155,10 @@
         "M-ø" #'sp-forward-slurp-sexp
         "M-k" #'sp-backward-slurp-sexp
         "M-l" #'sp-backward-barf-sexp))
+
+;; LSP
+(after! lsp-mode
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.local\\'"))
 
 ;; Language config
 
