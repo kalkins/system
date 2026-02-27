@@ -7,6 +7,7 @@ common_deps = {
     # Emacs fonts
     "ttf-firacode-nerd",
     "ttf-nerd-fonts-symbols-mono",
+    "noto-fonts-emoji",
     # Integrated terminal
     "cmake",
     "libvterm",
