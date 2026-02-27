@@ -1,0 +1,97 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 30,
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": [
+        "idle_inhibitor",
+        "wireplumber#source",
+        "wireplumber#sink",
+        "bluetooth",
+        "network",
+        "disk",
+        "cpu",
+        "memory",
+        "battery",
+        "tray",
+        "clock"
+    ],
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "tooltip": false,
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+    "clock": {
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": "{usage}%  "
+    },
+    "memory": {
+        "format": "{}%  "
+    },
+    "disk": {
+        "format": "{free}",
+        "states": {
+            "warning": 90,
+            "critical": 99
+        }
+    },
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            "good": 90,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}%  {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": "{essid} ({signalStrength}%)  ",
+        "format-ethernet": "Ethernet  ",
+        "format-disconnected": "No network  ⚠",
+        "format-alt": "{ipaddr}",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "tooltip-format-disconnected": "Disconnected",
+    },
+    "bluetooth": {
+        "format-on": "󰂯",
+        "format-off": "󰂲",
+        "format-connected": "{device_alias}  ",
+        "format-connected-battery": "{device_alias} {device_battery_percentage}%  ",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-off": "{controller_alias} powered off",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "bluetoothctl show | awk '/PowerState/ { if ($2==\"on\") { print \"off\" } else { print \"on\" } }' | xargs bluetoothctl power",
+        "on-click-right": "bluetoothctl devices Paired | awk '{ print $2 }' | xargs bluetoothctl connect"
+    },
+    "wireplumber#source": {
+        "node-type": "Audio/Source",
+        "format": "{volume}%  󰍬",
+        "format-muted": "󰍭",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "scroll-step": 5
+    },
+    "wireplumber#sink": {
+        "node-type": "Audio/Sink",
+        "format": "{volume}%  {icon}",
+        "format-muted": "",
+        "format-icons": ["", "", ""],
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "scroll-step": 5
+    }
+}

@@ -6,6 +6,12 @@ common_deps = {
     "playerctl",
     "bemenu-wayland",
     "brightnessctl",
+    "waybar",
+    "otf-font-awesome",
+    "bluez",
+    "bluez-utils",
+    "grim",
+    "slurp",
 }
 
 make = True
