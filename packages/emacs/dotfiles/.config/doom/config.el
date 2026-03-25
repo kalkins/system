@@ -184,3 +184,10 @@
                     :major-modes '(python-mode python-ts-mode)
                     :priority 1
                     :server-id 'uv-pyrefly-lsp)))
+
+;;; C
+(map! :map c-mode-map
+      :n "C-j" nil
+      :n "C-k" nil
+      :n "C-l" nil
+      :n "C-ø" nil)
