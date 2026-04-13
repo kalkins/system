@@ -1,0 +1,17 @@
+common_deps:
+- i3blocks
+- upower
+dependencies:
+  arch:
+  - acpi
+  - alsa-utils
+  - i3blocks
+  - sysstat
+  - upower
+  fedora:
+  - i3blocks
+  - upower
+  ubuntu:
+  - i3blocks
+  - upower
+make: true
