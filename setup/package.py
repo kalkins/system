@@ -1,57 +1,115 @@
+from config import PackageSource
+from config import DistroSpecific
+import yaml
+import logging
 from typing import Set, List, Self
 from pathlib import Path
 from dataclasses import dataclass
+from config import Distro
+from typing import Dict, Any
+
+
+logger = logging.getLogger(__file__)
+
+_settings_file_names = [
+    "settings.yml",
+    "settings.yaml",
+]
+
+
+PackageDependencies = Dict[PackageSource, Set[str]]
+
+
+@dataclass
+class PackageDependencyVariants(DistroSpecific[PackageDependencies]):
+    @classmethod
+    def parse(cls, data: Any) -> Self:
+        if not isinstance(data, dict):
+            raise ValueError(
+                f"Cannot parse '{data}' to PackageDependencies. Only dictionaries are supported"
+            )
+
+        default: Set[str] = data.get("default", set())
+        overrides: Dict[Distro, PackageDependencies] = {}
+
+        # The keys for the distros are at the same level as 'common',
+        # so we have to search for them
+        for key in data.keys() - {"default"}:
+            if distro := Distro.parse(key):
+                overrides[distro] = {
+                    k: set([str(x) for x in v]) for k, v in data[key].items()
+                }
+            else:
+                logger.warning("Unknown distro '%s'", key)
+
+        return cls(default, overrides)
 
 
 @dataclass
 class Package:
     name: str
+    path: Path
+    enabled_default: bool
+    distros: Set[Distro]
+    dependencies: PackageDependencyVariants | None
+    has_makefile: bool
     has_submodules: bool
-    custom_setup: bool
-    dotfiles_dir: Path
+    dotfiles_dir: str
     target_dir: Path
-    make: bool
-    dependencies: Set[str]
-    common_deps: Set[str]
 
-    def __init__(self, path):
-        self.path = path
+    def __str__(self):
+        return self.name
 
-        self.settings = self.import_file("settings")
+    def __hash__(self):
+        return hash(self.path)
 
-        try:
-            self.load_setting("dependencies")
-            self.distros = self.dependencies.keys()
-        except AttributeError:
-            self.load_setting("distros", distros)
-            self.dependencies = dict()
-            common_deps = self.get_setting("common_deps", set())
-            for distro in self.distros:
-                self.dependencies[distro] = common_deps
-
-        for distro in self.distros:
-            self.dependencies[distro] = self.dependencies[distro].union(
-                main_dependencies[distro]
+    @classmethod
+    def parse(cls, path: Path, data: Any) -> Self:
+        if not isinstance(data, dict):
+            raise ValueError(
+                f"Cannot parse '{data}' to Package. Only dictionaries are supported"
             )
 
-    def load_setting(self, attr, default=MISSING):
-        setattr(self, attr, self.get_setting(attr, default))
+        if distro_names := data.get("distros"):
+            distros = set()
 
-    def get_setting(self, attr, default=MISSING):
-        try:
-            return getattr(self.settings, attr)
-        except AttributeError as e:
-            if default is MISSING:
-                raise e
-            return default
+            for name in distro_names:
+                if distro := Distro.parse(name):
+                    distros.add(distro)
+                else:
+                    logger.warning("Unknown distro '%s'", name)
+        else:
+            distros = set(Distro)
+
+        dependencies = (
+            PackageDependencyVariants.parse(data["dependencies"])
+            if "dependencies" in data
+            else None
+        )
+
+        return cls(
+            name=data.get("name", path.name),
+            path=path,
+            enabled_default=data.get("enabled_default", False),
+            distros=distros,
+            dependencies=dependencies,
+            has_makefile=data.get("make", False),
+            has_submodules=data.get("submodules", False),
+            dotfiles_dir=data.get("dotfiles_dir") or "dotfiles",
+            target_dir=Path(data.get("target_dir", Path.home())).expanduser(),
+        )
 
     @classmethod
-    def parse(cls, path: Path) -> Self:
-        spec = util.spec_from_file_location(f, os.path.join(self.path, f + ".py"))
-        module = util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        return module
+    def load(cls, dir: Path) -> Self:
+        for alt_settings_path in _settings_file_names:
+            settings_path = dir / alt_settings_path
 
-    @classmethod
-    def parse_all(cls, dir: Path) -> List[Self]:
-        return [cls.parse(p) for p in dir.iterdir()]
+            if settings_path.exists():
+                with settings_path.open("r") as f:
+                    settings = yaml.safe_load(f) or {}
+                    break
+        else:
+            logger.debug("Could not find settings file for %s", dir.name)
+            settings = {}
+
+        return cls.parse(dir, settings)

@@ -1,2 +1,4 @@
-common_deps:
-- mako
+dependencies:
+  default:
+    main:
+    - mako

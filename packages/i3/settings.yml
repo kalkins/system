@@ -1,25 +1,29 @@
-common_deps:
-- dmenu
-- feh
-- i3status
-- slock
 dependencies:
+  default:
+    main:
+    - dmenu
+    - feh
+    - i3status
+    - slock
   arch:
-  - dmenu
-  - feh
-  - i3-wm
-  - i3status
-  - slock
+    default:
+    - dmenu
+    - feh
+    - i3-wm
+    - i3status
+    - slock
   fedora:
-  - dmenu
-  - feh
-  - i3
-  - i3status
-  - slock
+    default:
+    - dmenu
+    - feh
+    - i3
+    - i3status
+    - slock
   ubuntu:
-  - dmenu
-  - feh
-  - i3
-  - i3status
-  - slock
+    default:
+    - dmenu
+    - feh
+    - i3
+    - i3status
+    - slock
 make: true

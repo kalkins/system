@@ -1,3 +1,4 @@
+from props import AppProperties
 from typing import Tuple
 import os
 from typing import Self, Literal, get_args
@@ -16,17 +17,31 @@ def _get_config_dir() -> Path:
     return config_home / "system-setup"
 
 
+def _get_packages_dir() -> Path:
+    return Path(__file__).parent.parent / "packages"
+
+
 @dataclass
 class AppArguments:
     config_path: Path
+    packages_dir: Path
     action: Action
+    dry_run: bool
     verbosity: int
+
+    def to_props(self) -> AppProperties:
+        return AppProperties(
+            packages_dir=self.packages_dir,
+            dry_run=self.dry_run,
+        )
 
     @classmethod
     def default_args(cls) -> Self:
         return cls(
             config_path=_get_config_dir() / "config.yaml",
+            packages_dir=_get_packages_dir(),
             action="deploy",
+            dry_run=False,
             verbosity=0,
         )
 
@@ -52,6 +67,19 @@ def parse_arguments() -> AppArguments:
         help="Path to the system setup config file",
     )
     parser.add_argument(
+        "-p",
+        "--packages",
+        type=Path,
+        default=args.packages_dir,
+        help="Path to the directory with the package configs to install",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=args.dry_run,
+        help="Simulate a run and print the commands that would have been executed",
+    )
+    parser.add_argument(
         "-v",
         "--verbose",
         action="count",
@@ -64,8 +92,14 @@ def parse_arguments() -> AppArguments:
     if parse_args.config:
         args.config_path = parse_args.config
 
+    if parse_args.packages:
+        args.packages_dir = parse_args.packages
+
     if parse_args.action in ValidActions:
         args.action = parse_args.action
+
+    if parse_args.dry_run:
+        args.dry_run = parse_args.dry_run
 
     if parse_args.verbose:
         args.verbosity = parse_args.verbose

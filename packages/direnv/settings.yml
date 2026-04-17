@@ -1,2 +1,4 @@
-common_deps:
-- direnv
+dependencies:
+  default:
+    main:
+    - direnv

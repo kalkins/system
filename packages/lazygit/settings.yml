@@ -1,2 +1,4 @@
-common_deps:
-- lazygit
+dependencies:
+  default:
+    main:
+    - lazygit

@@ -1,20 +1,22 @@
-common_deps:
-- cmake
-- emacs
-- fd
-- libvterm
-- noto-fonts-emoji
-- python-black
-- python-isort
-- python-pyflakes
-- python-pytest
-- rustup
-- shellcheck
-- shfmt
-- stylelint
-- tidy
-- ttf-firacode-nerd
-- ttf-nerd-fonts-symbols-mono
-- ty
-- uv
-has_submodules: true
+enabled_default: true
+dependencies:
+  default:
+    main:
+    - cmake
+    - emacs-wayland
+    - fd
+    - libvterm
+    - noto-fonts-emoji
+    - python-black
+    - python-isort
+    - python-pyflakes
+    - python-pytest
+    - rustup
+    - shellcheck
+    - shfmt
+    - tidy
+    - ttf-firacode-nerd
+    - ttf-nerd-fonts-symbols-mono
+    - ty
+    - uv
+submodules: true

@@ -1,2 +1,4 @@
-common_deps:
-- xfce4-terminal
+dependencies:
+  default:
+    main:
+    - xfce4-terminal

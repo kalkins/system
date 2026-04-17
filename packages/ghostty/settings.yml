@@ -1,3 +1,4 @@
-common_deps:
-- ghostty
-has_submodules: false
+dependencies:
+  default:
+    main:
+    - ghostty

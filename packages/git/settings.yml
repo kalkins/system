@@ -1,2 +1,4 @@
-common_deps:
-- git
+dependencies:
+  default:
+    main:
+    - git

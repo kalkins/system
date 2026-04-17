@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 
-from config import Config
+from config import AppConfig
 import actions
 import logging
 from args import parse_arguments
-from settings import install_commands
-from utils import get_distro, get_packages, run_command, get_dependencies
 
 
 def setup_logging(verbosity: int) -> None:
@@ -31,16 +29,20 @@ def main():
     args = parse_arguments()
     setup_logging(args.verbosity)
 
-    config = Config.parse(args.config_path) if args.config_path.exists() else None
+    props = args.to_props()
+    config = AppConfig.parse(args.config_path)
 
     if config is None or args.action == "setup":
-        config = actions.setup(config)
+        if config is None:
+            print("Running first-time setup")
 
-        while True:
+        config = actions.setup(props, config)
+
+        while not props.dry_run:
             save_input = input(f"Save config to {args.config_path}? [Y/n] ")
 
             if save_input in ["", "Y", "y"]:
-                Config.save(args.config_path)
+                config.save(args.config_path)
                 break
             elif save_input in ["N", "n"]:
                 break
@@ -48,47 +50,12 @@ def main():
                 print(f"Invalid answer '{save_input}'")
 
     if args.action == "deploy":
-        actions.deploy(config)
-
-    distro = get_distro(args.distro)
-    print()
-    packages = get_packages(
-        distro, args.packages if args.packages else "*" if args.all else None
-    )
-    dependencies = get_dependencies(distro, packages)
-
-    if dependencies:
-        install_command = install_commands[distro]
-
-        if args.yay_flags:
-            install_command += args.yay_flags.split(",")
-
-        install_command += list(dependencies)
-
-        print()
-        print("Installing packages...")
-        print(" ".join(install_command))
-        run_command(install_command)
-    else:
-        print()
-        print("No packages to install")
-
-    print()
-    print("Fetching submodules")
-    for package in packages:
-        if package.has_submodules:
-            run_command(
-                ["git", "submodule", "update", "--init", "--recursive", package.path]
-            )
-
-    print()
-    for package in packages:
-        print("Setting up {}".format(package))
-        package.setup(distro)
+        actions.deploy(props, config)
 
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
+        print()
         pass
