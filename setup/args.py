@@ -1,14 +1,17 @@
+from enum import StrEnum
 from props import AppSteps
 from props import AppProperties
-from typing import Tuple
+from typing import Set
 import os
-from typing import Self, Literal, get_args
+from typing import Self
 from dataclasses import dataclass
 import argparse
 from pathlib import Path
 
-Action = Literal["deploy", "setup"]
-ValidActions: Tuple[Action] = get_args(Action)
+
+class Action(StrEnum):
+    Setup = "setup"
+    Deploy = "deploy"
 
 
 def _get_config_dir() -> Path:
@@ -25,7 +28,7 @@ def _get_packages_dir() -> Path:
 class AppArguments:
     config_path: Path
     packages_dir: Path
-    action: Action
+    actions: Set[Action]
     step_install: bool
     step_extra_setup: bool
     step_deploy: bool
@@ -46,7 +49,7 @@ class AppArguments:
         ]
 
         return (
-            f"action: {self.action}, "
+            f"actions: [{', '.join(self.actions)}], "
             f"dry run: {self.dry_run}, "
             f"verbosity: {self.verbosity}, "
             f"config path: {self.config_path}, "
@@ -71,7 +74,7 @@ class AppArguments:
         return cls(
             config_path=_get_config_dir() / "config.yaml",
             packages_dir=_get_packages_dir(),
-            action="deploy",
+            actions={Action.Deploy},
             step_install=True,
             step_extra_setup=True,
             step_deploy=True,
@@ -88,10 +91,11 @@ def parse_arguments() -> AppArguments:
         description="Install and set up packages and dotfiles",
     )
     parser.add_argument(
-        "action",
-        choices=ValidActions,
-        nargs="?",
-        default=args.action,
+        "actions",
+        type=Action,
+        choices=list(Action),
+        nargs="*",
+        default=args.actions,
         help="The action to perform. 'setup' interactively alters the config file. 'deploy' ",
     )
     parser.add_argument(
@@ -150,7 +154,7 @@ def parse_arguments() -> AppArguments:
 
     args.config_path = parse_args.config
     args.packages_dir = parse_args.packages
-    args.action = parse_args.action
+    args.actions = set(parse_args.actions)
     args.step_install = not parse_args.no_install
     args.step_extra_setup = not parse_args.no_extra_setup
     args.step_deploy = not parse_args.no_deploy

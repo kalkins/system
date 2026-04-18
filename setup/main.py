@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from args import Action
 from config import AppConfig
 import actions
 import logging
@@ -37,7 +38,7 @@ def main():
     props = args.to_props()
     config = AppConfig.parse(args.config_path)
 
-    if config is None or args.action == "setup":
+    if config is None or Action.Setup in args.actions:
         if config is None:
             print("Running first-time setup")
 
@@ -54,7 +55,7 @@ def main():
             else:
                 print(f"Invalid answer '{save_input}'")
 
-    if args.action == "deploy":
+    if Action.Deploy in args.actions:
         actions.deploy(props, config)
 
 
