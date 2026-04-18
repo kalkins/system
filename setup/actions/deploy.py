@@ -13,6 +13,10 @@ logger = logging.getLogger(__file__)
 def _install_dependencies(
     props: AppProperties, config: AppConfig, package: Package
 ) -> None:
+    if not props.steps.install:
+        logger.debug("Skipping installation of dependencies")
+        return
+
     dependency_sources: PackageDependencies | None = (
         package.dependencies.get(config.distro) if package.dependencies else None
     )
@@ -52,6 +56,10 @@ def _install_dependencies(
 
 
 def _run_extra_setup(props: AppProperties, package: Package) -> None:
+    if not props.steps.extra_setup:
+        logger.debug("Skipping extra setup")
+        return
+
     if package.has_makefile:
         logger.debug("Running make")
         run_command("make", ["-C", package.path], dry_run=props.dry_run)
@@ -64,6 +72,10 @@ def _run_extra_setup(props: AppProperties, package: Package) -> None:
 
 
 def _deploy_dotfiles(props: AppProperties, package: Package) -> None:
+    if not props.steps.deploy:
+        logger.debug("Skipping dotfiles deployment")
+        return
+
     dotfiles_path = package.path / package.dotfiles_dir
 
     if dotfiles_path.exists():
@@ -83,6 +95,10 @@ def _deploy_dotfiles(props: AppProperties, package: Package) -> None:
 
 
 def _undeploy_dotfiles(props: AppProperties, package: Package) -> None:
+    if not props.steps.undeploy:
+        logger.debug("Skipping unlinking dotfiles")
+        return
+
     dotfiles_path = package.path / package.dotfiles_dir
 
     if dotfiles_path.exists():

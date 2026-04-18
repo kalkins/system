@@ -2,7 +2,7 @@ from config import PackageSource
 from config import DistroSpecific
 import yaml
 import logging
-from typing import Set, List, Self
+from typing import Set, Self
 from pathlib import Path
 from dataclasses import dataclass
 from config import Distro

@@ -5,6 +5,8 @@ import actions
 import logging
 from args import parse_arguments
 
+logger = logging.getLogger(__file__)
+
 
 def setup_logging(verbosity: int) -> None:
     if verbosity == 0:
@@ -21,6 +23,7 @@ def setup_logging(verbosity: int) -> None:
         level=log_level,
         format="%(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
         datefmt="%Y-%m-%dT%H:%M:%S",
+        force=True,
     )
 
 
@@ -28,6 +31,8 @@ def main():
     setup_logging(0)
     args = parse_arguments()
     setup_logging(args.verbosity)
+
+    logger.debug("Parsed command line arguments: %s", args)
 
     props = args.to_props()
     config = AppConfig.parse(args.config_path)
