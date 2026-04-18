@@ -1,0 +1,17 @@
+dependencies:
+  default:
+    main:
+    - bemenu-wayland
+    - bluez
+    - bluez-utils
+    - brightnessctl
+    - grim
+    - otf-font-awesome
+    - playerctl
+    - slurp
+    - sway
+    - swaybg
+    - swayidle
+    - swaylock
+    - waybar
+make: true

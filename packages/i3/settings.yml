@@ -1,0 +1,29 @@
+dependencies:
+  default:
+    main:
+    - dmenu
+    - feh
+    - i3status
+    - slock
+  arch:
+    default:
+    - dmenu
+    - feh
+    - i3-wm
+    - i3status
+    - slock
+  fedora:
+    default:
+    - dmenu
+    - feh
+    - i3
+    - i3status
+    - slock
+  ubuntu:
+    default:
+    - dmenu
+    - feh
+    - i3
+    - i3status
+    - slock
+make: true

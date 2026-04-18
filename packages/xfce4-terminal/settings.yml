@@ -1,0 +1,4 @@
+dependencies:
+  default:
+    main:
+    - xfce4-terminal

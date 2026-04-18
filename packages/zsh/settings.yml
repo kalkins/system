@@ -1,0 +1,6 @@
+dependencies:
+  default:
+    main:
+    - fzf
+    - zsh
+submodules: true

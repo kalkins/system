@@ -1,0 +1,5 @@
+dependencies:
+  default:
+    main:
+    - vim
+submodules: true

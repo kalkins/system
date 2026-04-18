@@ -1,0 +1,5 @@
+dependencies:
+  default:
+    main:
+    - zoxide
+dotfiles_dir: null

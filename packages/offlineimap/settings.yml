@@ -1,0 +1,5 @@
+dependencies:
+  default:
+    main:
+    - offlineimap
+make: true

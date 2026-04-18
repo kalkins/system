@@ -1,0 +1,21 @@
+dependencies:
+  default:
+    main:
+    - i3blocks
+    - upower
+  arch:
+    default:
+    - acpi
+    - alsa-utils
+    - i3blocks
+    - sysstat
+    - upower
+  fedora:
+    default:
+    - i3blocks
+    - upower
+  ubuntu:
+    default:
+    - i3blocks
+    - upower
+make: true

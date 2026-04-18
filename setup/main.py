@@ -1,56 +1,61 @@
 #!/usr/bin/python3
 
-import argparse
-from settings import install_commands
-from utils import get_distro, get_packages, run_command, get_dependencies
+from config import AppConfig
+import actions
+import logging
+from args import parse_arguments
+
+
+def setup_logging(verbosity: int) -> None:
+    if verbosity == 0:
+        log_level = logging.WARNING
+    elif verbosity == 1:
+        log_level = logging.INFO
+    elif verbosity >= 2:
+        log_level = logging.DEBUG
+    else:
+        print(f"Invalid verbosity {verbosity}")
+        exit(-1)
+
+    logging.basicConfig(
+        level=log_level,
+        format="%(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
+        datefmt="%Y-%m-%dT%H:%M:%S",
+    )
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description='Install and set up packages and dotfiles',
-    )
-    parser.add_argument('-a', '--all', action='store_true', help='Use all packages')
-    parser.add_argument('-d', '--distro', help='The current distro')
-    parser.add_argument('--yay-flags', default='', help='Flags to pass to yay')
-    parser.add_argument('packages', nargs='*', help='Packages to use')
+    setup_logging(0)
+    args = parse_arguments()
+    setup_logging(args.verbosity)
 
-    args = parser.parse_args()
+    props = args.to_props()
+    config = AppConfig.parse(args.config_path)
 
-    distro = get_distro(args.distro)
-    print()
-    packages = get_packages(distro, args.packages if args.packages else '*' if args.all else None)
-    dependencies = get_dependencies(distro, packages)
+    if config is None or args.action == "setup":
+        if config is None:
+            print("Running first-time setup")
 
-    if dependencies:
-        install_command = install_commands[distro]
+        config = actions.setup(props, config)
 
-        if args.yay_flags:
-            install_command += args.yay_flags.split(',')
+        while not props.dry_run:
+            save_input = input(f"Save config to {args.config_path}? [Y/n] ")
 
-        install_command += list(dependencies)
+            if save_input in ["", "Y", "y"]:
+                config.save(args.config_path)
+                break
+            elif save_input in ["N", "n"]:
+                break
+            else:
+                print(f"Invalid answer '{save_input}'")
 
-        print()
-        print('Installing packages...')
-        print(' '.join(install_command))
-        run_command(install_command)
-    else:
-        print()
-        print('No packages to install')
-
-    print()
-    print('Fetching submodules')
-    for package in packages:
-        if package.has_submodules:
-            run_command(['git', 'submodule', 'update', '--init', '--recursive', package.path])
-
-    print()
-    for package in packages:
-        print('Setting up {}'.format(package))
-        package.setup(distro)
+    if args.action == "deploy":
+        actions.deploy(props, config)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
+        print()
         pass
