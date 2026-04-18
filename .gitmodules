@@ -5,8 +5,8 @@
 	path = packages/emacs/dotfiles/.emacs.d
 	url = https://github.com/plexus/chemacs2.git
 [submodule "packages/emacs/dotfiles/.emacs-profiles.d/doom"]
-	path = packages/emacs/dotfiles/.emacs.d
+	path = user/packages/emacs/dotfiles/.emacs.d
 	url = https://github.com/hlissner/doom-emacs.git
 [submodule "packages/zsh/dotfiles/.p10k"]
-	path = packages/zsh/dotfiles/.p10k
+	path = user/packages/zsh/dotfiles/.p10k
 	url = https://github.com/romkatv/powerlevel10k.git
