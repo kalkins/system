@@ -82,14 +82,40 @@ def _deploy_dotfiles(props: AppProperties, package: Package) -> None:
         )
 
 
+def _undeploy_dotfiles(props: AppProperties, package: Package) -> None:
+    dotfiles_path = package.path / package.dotfiles_dir
+
+    if dotfiles_path.exists():
+        logger.debug("Unlinking dotfiles")
+        run_command(
+            "stow",
+            [
+                "-D",
+                "-d",
+                package.path,
+                "-t",
+                package.target_dir,
+                package.dotfiles_dir,
+            ],
+            dry_run=props.dry_run,
+        )
+
+
 def deploy(props: AppProperties, config: AppConfig) -> None:
-    packages = [
-        p
-        for p in get_packages(props.packages_dir)
-        if p.name in config.selected_packages
+    all_packages = get_packages(props.packages_dir)
+
+    selected_packages = [p for p in all_packages if p.name in config.selected_packages]
+
+    deselected_packages = [
+        p for p in all_packages if p.name not in config.selected_packages
     ]
 
-    for package in packages:
+    for package in deselected_packages:
+        print()
+        print(f"Removing {package.name}")
+        _undeploy_dotfiles(props, package)
+
+    for package in selected_packages:
         print()
         print(f"Deploying {package.name}")
         _install_dependencies(props, config, package)
