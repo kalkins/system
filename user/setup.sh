@@ -1,1 +1,3 @@
-python3 setup/main.py $@
+dir=$(dirname "$0")
+
+python3 "$dir/src/main.py" "$@"
