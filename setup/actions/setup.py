@@ -65,7 +65,7 @@ def _select_packages(
         if package_input == "":
             if not selected_packages:
                 confirm_input = input(
-                    "Are you sure that you want to disable all packages? [Y/n] "
+                    "Are you sure that you want to disable all packages? [y/N] "
                 )
 
                 if confirm_input not in ["Y", "y"]:
