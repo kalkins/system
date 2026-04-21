@@ -20,6 +20,7 @@ def get_packages(packages_dir: Path) -> List[Package]:
             packages.append(Package.load(dir))
         except Exception as e:
             print(f'Encountered exception in package {dir.name}: "{e}"')
+            logger.error(e, "Could not load package settings")
             continue
 
     return packages

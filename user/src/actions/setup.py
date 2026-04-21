@@ -1,10 +1,13 @@
 import re
-from typing import Set
-from package import Package
 from pathlib import Path
+from typing import Set
+
+from config import AppConfig, Distro, SystemTag
+from package import Package
 from props import AppProperties
 from utils import get_packages
-from config import AppConfig, Distro
+
+_select_expr = re.compile(r"^(?P<negate>-)?(?P<start>\d+)(-(?P<end>\d+))?$")
 
 
 def _select_distro(selected_distro: Distro | None) -> Distro:
@@ -39,6 +42,46 @@ def _select_distro(selected_distro: Distro | None) -> Distro:
             continue
 
 
+def _select_tags(selected_tags: Set[SystemTag]) -> Set[SystemTag]:
+    tags = list(SystemTag)
+
+    while True:
+        print()
+        for i, tag in enumerate(tags):
+            selected = tag in selected_tags
+            print(f"{i:<2}: [{'*' if selected else ' '}] {tag.name}")
+
+        tag_input = input("Select tags or leave blank to confirm: ")
+
+        if tag_input == "":
+            return selected_tags
+
+        for part in tag_input.split(" "):
+            if part == "*":
+                selected_tags = set(tags)
+            elif part == "-*":
+                selected_tags = set()
+            elif match := _select_expr.search(part):
+                negated = match.group("negate") is not None
+                start_str = match.group("start")
+                start = int(start_str)
+                end_str = match.group("end")
+                end = int(end_str) if end_str else start
+
+                if start >= 0 and end >= start and end < len(tags):
+                    selected = set(tags[start : end + 1])
+
+                    if negated:
+                        selected_tags -= selected
+                    else:
+                        selected_tags = selected_tags.union(selected)
+                else:
+                    print("Index out of bounds")
+                    continue
+            else:
+                print(f"Invalid expression '{part}'")
+
+
 def _select_packages(
     packages_dir: Path, distro: Distro, selected_names: Set[str]
 ) -> Set[Package]:
@@ -51,8 +94,6 @@ def _select_packages(
             if (selected_names and p.name in selected_names) or p.enabled_default
         ]
     )
-
-    select_expr = re.compile(r"^(?P<negate>-)?(?P<start>\d+)(-(?P<end>\d+))?$")
 
     while True:
         print()
@@ -78,7 +119,7 @@ def _select_packages(
                 selected_packages = set(packages)
             elif part == "-*":
                 selected_packages = set()
-            elif match := select_expr.search(part):
+            elif match := _select_expr.search(part):
                 negated = match.group("negate") is not None
                 start_str = match.group("start")
                 start = int(start_str)
@@ -101,6 +142,7 @@ def _select_packages(
 
 def setup(props: AppProperties, config: AppConfig | None) -> AppConfig:
     distro = _select_distro(config.distro if config else None)
+    tags = _select_tags(config.tags if config else set())
     packages = _select_packages(
         props.packages_dir,
         distro,
@@ -109,6 +151,7 @@ def setup(props: AppProperties, config: AppConfig | None) -> AppConfig:
 
     return AppConfig(
         distro=distro,
+        tags=tags,
         commands=None,
         selected_packages=set([p.name for p in packages]),
     )

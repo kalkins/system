@@ -1,13 +1,10 @@
-from config import PackageSource
-from config import DistroSpecific
-import yaml
 import logging
-from typing import Set, Self
-from pathlib import Path
 from dataclasses import dataclass
-from config import Distro
-from typing import Dict, Any
+from pathlib import Path
+from typing import Any, Dict, Self, Set
 
+import yaml
+from config import Distro, DistroSpecific, PackageSource, SystemTag
 
 logger = logging.getLogger(__file__)
 
@@ -46,16 +43,41 @@ class PackageDependencyVariants(DistroSpecific[PackageDependencies]):
 
 
 @dataclass
+class PackageDeploymentDetails:
+    dependencies: PackageDependencyVariants | None
+    dotfiles_dir: str
+    target_dir: Path
+
+    @classmethod
+    def parse(cls, data: Any) -> Self:
+        if not isinstance(data, dict):
+            raise ValueError(
+                f"Cannot parse '{data}' to Package. Only dictionaries are supported"
+            )
+
+        dependencies = (
+            PackageDependencyVariants.parse(data["dependencies"])
+            if "dependencies" in data
+            else None
+        )
+
+        return cls(
+            dependencies=dependencies,
+            dotfiles_dir=data.get("dotfiles_dir") or "dotfiles",
+            target_dir=Path(data.get("target_dir", Path.home())).expanduser(),
+        )
+
+
+@dataclass
 class Package:
     name: str
     path: Path
     enabled_default: bool
     distros: Set[Distro]
-    dependencies: PackageDependencyVariants | None
     has_makefile: bool
     has_submodules: bool
-    dotfiles_dir: str
-    target_dir: Path
+    common_deployment: PackageDeploymentDetails
+    tagged_deployment: Dict[SystemTag, PackageDeploymentDetails]
 
     def __str__(self):
         return self.name
@@ -70,6 +92,8 @@ class Package:
                 f"Cannot parse '{data}' to Package. Only dictionaries are supported"
             )
 
+        distros: Set[Distro]
+
         if distro_names := data.get("distros"):
             distros = set()
 
@@ -81,22 +105,20 @@ class Package:
         else:
             distros = set(Distro)
 
-        dependencies = (
-            PackageDependencyVariants.parse(data["dependencies"])
-            if "dependencies" in data
-            else None
-        )
-
         return cls(
             name=data.get("name", path.name),
             path=path,
             enabled_default=data.get("enabled_default", False),
             distros=distros,
-            dependencies=dependencies,
             has_makefile=data.get("make", False),
             has_submodules=data.get("submodules", False),
-            dotfiles_dir=data.get("dotfiles_dir") or "dotfiles",
-            target_dir=Path(data.get("target_dir", Path.home())).expanduser(),
+            common_deployment=PackageDeploymentDetails.parse(data),
+            tagged_deployment={
+                SystemTag.parse_require(tag): PackageDeploymentDetails.parse(
+                    data["tags"][tag]
+                )
+                for tag in data.get("tags", [])
+            },
         )
 
     @classmethod

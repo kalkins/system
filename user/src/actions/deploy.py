@@ -1,24 +1,26 @@
-from config import CommandsConfig
-from package import PackageDependencies
 import logging
-from package import Package
-from utils import run_command
-from utils import get_packages
+
+from config import AppConfig, CommandsConfig
+from package import Package, PackageDependencies
 from props import AppProperties
-from config import AppConfig
+from utils import get_packages, run_command
+from package import PackageDeploymentDetails
 
 logger = logging.getLogger(__file__)
 
 
 def _install_dependencies(
-    props: AppProperties, config: AppConfig, package: Package
+    props: AppProperties,
+    config: AppConfig,
+    package: Package,
+    details: PackageDeploymentDetails,
 ) -> None:
     if not props.steps.install:
         logger.debug("Skipping installation of dependencies")
         return
 
     dependency_sources: PackageDependencies | None = (
-        package.dependencies.get(config.distro) if package.dependencies else None
+        details.dependencies.get(config.distro) if details.dependencies else None
     )
 
     if not dependency_sources:
@@ -71,12 +73,14 @@ def _run_extra_setup(props: AppProperties, package: Package) -> None:
         )
 
 
-def _deploy_dotfiles(props: AppProperties, package: Package) -> None:
+def _deploy_dotfiles(
+    props: AppProperties, package: Package, details: PackageDeploymentDetails
+) -> None:
     if not props.steps.deploy:
         logger.debug("Skipping dotfiles deployment")
         return
 
-    dotfiles_path = package.path / package.dotfiles_dir
+    dotfiles_path = package.path / details.dotfiles_dir
 
     if dotfiles_path.exists():
         logger.debug("Deploying dotfiles")
@@ -87,19 +91,23 @@ def _deploy_dotfiles(props: AppProperties, package: Package) -> None:
                 "-d",
                 package.path,
                 "-t",
-                package.target_dir,
-                package.dotfiles_dir,
+                details.target_dir,
+                details.dotfiles_dir,
             ],
             dry_run=props.dry_run,
         )
 
 
-def _undeploy_dotfiles(props: AppProperties, package: Package) -> None:
+def _undeploy_dotfiles(
+    props: AppProperties,
+    package: Package,
+    details: PackageDeploymentDetails,
+) -> None:
     if not props.steps.undeploy:
         logger.debug("Skipping unlinking dotfiles")
         return
 
-    dotfiles_path = package.path / package.dotfiles_dir
+    dotfiles_path = package.path / details.dotfiles_dir
 
     if dotfiles_path.exists():
         logger.debug("Unlinking dotfiles")
@@ -110,8 +118,8 @@ def _undeploy_dotfiles(props: AppProperties, package: Package) -> None:
                 "-d",
                 package.path,
                 "-t",
-                package.target_dir,
-                package.dotfiles_dir,
+                details.target_dir,
+                details.dotfiles_dir,
             ],
             dry_run=props.dry_run,
         )
@@ -129,11 +137,25 @@ def deploy(props: AppProperties, config: AppConfig) -> None:
     for package in deselected_packages:
         print()
         print(f"Removing {package.name}")
-        _undeploy_dotfiles(props, package)
+        _undeploy_dotfiles(props, package, package.common_deployment)
+
+        for tag, details in package.tagged_deployment.items():
+            print(f"Removing {package.name} - {tag}")
+            _undeploy_dotfiles(props, package, details)
 
     for package in selected_packages:
         print()
         print(f"Deploying {package.name}")
-        _install_dependencies(props, config, package)
+        _install_dependencies(props, config, package, package.common_deployment)
         _run_extra_setup(props, package)
-        _deploy_dotfiles(props, package)
+        _deploy_dotfiles(props, package, package.common_deployment)
+
+        for tag, details in package.tagged_deployment.items():
+            print()
+            if tag in config.tags:
+                print(f"Deploying {package.name} - {tag}")
+                _install_dependencies(props, config, package, details)
+                _deploy_dotfiles(props, package, details)
+            else:
+                print(f"Removing {package.name} - {tag}")
+                _undeploy_dotfiles(props, package, details)

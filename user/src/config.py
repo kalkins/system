@@ -1,9 +1,10 @@
 import logging
-import yaml
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
-from typing import List, Self, Set, Dict, Any
+from typing import Any, Dict, List, Self, Set
+
+import yaml
 
 logger = logging.getLogger(__file__)
 
@@ -24,6 +25,26 @@ class Distro(StrEnum):
                 return distro
         else:
             return None
+
+
+class SystemTag(StrEnum):
+    Laptop = "Laptop"
+    Desktop = "Desktop"
+
+    @classmethod
+    def parse(cls, input: str) -> Self | None:
+        for tag in cls:
+            if input.lower() == tag.value.lower():
+                return tag
+        else:
+            return None
+
+    @classmethod
+    def parse_require(cls, input: str) -> Self:
+        if result := cls.parse(input):
+            return result
+        else:
+            raise ValueError(f"Invalid system tag '{input}'")
 
 
 @dataclass
@@ -162,21 +183,24 @@ class CommandsConfig:
 @dataclass
 class AppConfig:
     distro: Distro
+    tags: Set[SystemTag]
     selected_packages: Set[str]
     commands: CommandsConfig | None
 
     def to_dict(self) -> Dict:
         return {
             "distro": str(self.distro),
+            "tags": [str(tag) for tag in self.tags],
             "selected_packages": sorted(self.selected_packages),
             "commands": self.commands.to_dict() if self.commands else None,
         }
 
     def save(self, path: Path) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
+        data = yaml.safe_dump(self.to_dict())
 
         with path.open("w") as f:
-            yaml.safe_dump(self.to_dict(), f)
+            f.write(data)
 
     @classmethod
     def parse(cls, path: Path) -> Self | None:
@@ -186,6 +210,7 @@ class AppConfig:
 
         with path.open("r") as f:
             config = yaml.safe_load(f)
+            tags = [SystemTag.parse_require(t) for t in config.get("tags", [])]
             distro = Distro.parse(config.get("distro"))
             commands = config.get("commands")
 
@@ -194,6 +219,7 @@ class AppConfig:
 
             return cls(
                 distro=distro,
+                tags=set(tags),
                 commands=CommandsConfig.parse(commands) if commands else None,
                 selected_packages=set(config["selected_packages"]),
             )
