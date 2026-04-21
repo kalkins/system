@@ -1,0 +1,7 @@
+# Set up auto lock on suspend
+exec swayidle -w \
+         timeout $idle_lock_timeout  'swaylock -f -u -i $wallpaper_path' \
+         timeout $idle_screen_off_timeout  'swaymsg "output * dpms off"' \
+               resume 'swaymsg "output * dpms on"' \
+         timeout $idle_hibernate_timeout $idle_hibernate_command \
+         before-sleep 'swaylock -f -u -i $wallpaper_path'

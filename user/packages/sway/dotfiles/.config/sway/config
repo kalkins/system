@@ -1,0 +1,8 @@
+# This file should not be modified directly.
+# Instead, drop a new file into one of the directories in config.d/
+
+# Include default sway config
+include /etc/sway/config.d/*
+
+# Include user sway config
+include config.d/*/*

@@ -1,0 +1,6 @@
+# Touchpad
+input $touchpad {
+      tap enabled
+      natural_scroll enabled
+      pointer_accel 0.4
+}

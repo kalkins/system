@@ -1,0 +1,3 @@
+# Keymap
+input * xkb_layout "no(nodeadkeys)"
+input * xkb_options "ctrl:nocaps"

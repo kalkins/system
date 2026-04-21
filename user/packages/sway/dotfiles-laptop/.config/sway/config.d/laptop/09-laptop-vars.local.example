@@ -1,0 +1,2 @@
+# Get touchpad device with `swaymsg -t get_inputs`
+#set $touchpad "1267:12572:VEN_04F3:00_04F3:311C_Touchpad"

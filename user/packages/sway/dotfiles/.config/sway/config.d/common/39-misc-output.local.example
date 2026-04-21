@@ -1,0 +1,3 @@
+# Setup screen configuration
+# Get the screen output with `swaymsg -t get_outputs`
+#output "LG Electronics LG HDR 4K 0x0000E7ED" scale 2

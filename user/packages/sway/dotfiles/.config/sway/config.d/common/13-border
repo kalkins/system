@@ -1,0 +1,3 @@
+# Give all windows a border of 1px, except at the edges of the screen
+default_border pixel
+hide_edge_borders both

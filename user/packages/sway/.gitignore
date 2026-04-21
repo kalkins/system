@@ -1,1 +1,1 @@
-dotfiles/.config/sway/config
+**/**/config.d/*/*.local

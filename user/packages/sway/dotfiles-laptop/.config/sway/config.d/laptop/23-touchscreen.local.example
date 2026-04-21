@@ -1,0 +1,6 @@
+# Map touchscreen to the screen output
+# Get touch input with `swaymsg -t get_inputs`
+# and screen output with `swaymsg -t get_outputs`
+#input 1267:11557:ELAN2D25:00_04F3:2D25 {
+#      map_to_output eDP-1
+#}

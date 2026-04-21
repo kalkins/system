@@ -1,0 +1,6 @@
+set $mod Mod4
+
+set $idle_lock_timeout 600
+set $idle_screen_off_timeout 900
+set $idle_hibernate_timeout 3600
+set $idle_hibernate_command "systemctl suspend-then-hibernate"

@@ -1,0 +1,8 @@
+# Start dmenu (a program launcher)
+bindsym $mod+d exec bemenu-run
+
+# Start a terminal
+bindsym $mod+Return exec ghostty
+
+# Screenshots
+bindsym $mod+g exec grim -cg "$(slurp)"

@@ -1,0 +1,2 @@
+# Start notification daemon
+exec --no-startup-id mako --config ~/.config/mako/config

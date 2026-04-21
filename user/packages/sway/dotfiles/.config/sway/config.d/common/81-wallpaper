@@ -1,0 +1,2 @@
+# Set wallpaper
+output "*" bg $wallpaper_path fill

@@ -14,4 +14,8 @@ dependencies:
     - swayidle
     - swaylock
     - waybar
-make: true
+tags:
+  laptop:
+    dotfiles_dir: dotfiles-laptop
+  desktop:
+    dotfiles_dir: dotfiles-desktop

@@ -1,0 +1,4 @@
+# Hide cursor after 3 seconds
+seat seat0 {
+     hide_cursor 3000
+}
