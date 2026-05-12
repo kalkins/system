@@ -148,6 +148,14 @@
 ;;; Jump to definitions in other window
 (map! :n "gw" #'xref-find-definitions-other-window)
 
+;;; Open URL in browser
+(defun my/browse-url-at-point ()
+  "Open URL at point in Firefox."
+  (interactive)
+  (browse-url-firefox (browse-url-url-at-point)))
+
+(map! :n "gW" #'my/browse-url-at-point)
+
 ;;; Smartparens
 (after! smartparens
   (map! :map smartparens-mode-map
