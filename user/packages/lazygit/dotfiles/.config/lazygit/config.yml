@@ -27,3 +27,4 @@ keybinding:
 
 git:
   overrideGpg: true
+  autoFetch: false
