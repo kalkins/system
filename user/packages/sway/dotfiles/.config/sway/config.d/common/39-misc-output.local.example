@@ -1,3 +1,8 @@
 # Setup screen configuration
+
+# Some software (probably XWayland) does not accept negative coordinates.
+# Therefore the main display is placed at high coordinates, so other
+# displays can be placed in any direction.
+
 # Get the screen output with `swaymsg -t get_outputs`
-#output "LG Electronics LG HDR 4K 0x0000E7ED" scale 2
+#output "LG Electronics LG HDR 4K 0x0000E7ED" mode 4096x2160@60Hz scale 2 pos 10000 10000
