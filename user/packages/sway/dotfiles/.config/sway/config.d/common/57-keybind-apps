@@ -1,5 +1,5 @@
 # Start dmenu (a program launcher)
-bindsym $mod+d exec bemenu-run
+bindsym $mod+d exec fuzzel
 
 # Start a terminal
 bindsym $mod+Return exec ghostty
