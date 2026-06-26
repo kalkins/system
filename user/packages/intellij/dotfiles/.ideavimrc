@@ -1,5 +1,135 @@
-map j <LEFT>
-map k <DOWN>
-map l <UP>
-map ø <RIGHT>
-set ideajoin
+" ============================================================
+"  IdeaVim config — mirroring Doom Emacs / Nordic key layout
+"  j=Left  k=Down  l=Up  ø=Right  (instead of h/j/k/l)
+" ============================================================
+
+" ── Plugins ─────────────────────────────────────────────────
+set surround          " vim-surround: cs, ds, ys
+set commentary        " gc to comment
+set highlightedyank   " briefly highlight yanked text
+set NERDTree          " file tree (optional, open with <Space>op style)
+set ideajoin          " smart J join using IDE logic
+set ideamarks         " sync vim marks with IDE bookmarks
+
+" ── Core settings ───────────────────────────────────────────
+set number            " line numbers on
+set relativenumber    " relative by default (matches display-line-numbers-type 'relative)
+set scrolloff=5
+set incsearch
+set ignorecase
+set smartcase
+set showmode
+set clipboard=unnamedplus " use the system clipboard by default
+
+" ── Nordic movement: j=← k=↓ l=↑ ø=→ ──────────────────────
+" Normal / Visual / Operator-pending
+noremap j h
+noremap k j
+noremap l k
+noremap ø l
+
+" Keep the original h/j/k/l targets reachable (shifted one step)
+" h is repurposed below — original h (move left) is now j
+
+" ── Window navigation: C-j/k/l/ø ───────────────────────────
+nnoremap <C-j> <C-w>h
+nnoremap <C-k> <C-w>j
+nnoremap <C-l> <C-w>k
+nnoremap <C-ø> <C-w>l                     " doesn't work, set it manually
+nnoremap <C-M-j> :action PreviousTab<CR>
+nnoremap <C-M-ø> :action NextTab<CR>      " doesn't work, set it manually
+
+" ── h: cycle line number modes ──────────────────────────────
+" relative → absolute → none → relative …
+" IdeaVim doesn't have a scripting engine to toggle state, so we
+" map h to the IDE action that toggles relative numbers on/off.
+" Two presses cycle: relative → off, press again → absolute, etc.
+" Best approximation: map h to toggle relative numbers via IDE.
+nnoremap h :set relativenumber!<CR>
+
+" ── Buffer switching: [b / ]b ──────────────────────────────
+nnoremap [b :action Back<CR>
+nnoremap ]b :action Forward<CR>
+
+" ── Jumping within buffer ──────────────────────────────
+nnoremap [e :action GotoPreviousError<CR>
+nnoremap ]e :action GotoNextError<CR>
+
+" ── Jump history: C-o / C-i ─────────────────────────────────
+" IdeaVim preserves Vim's native <C-o> (jump back) and <C-i> (jump
+" forward) by default. These move through the full jump list, which
+" spans cursor positions both within the current file and across
+" files — exactly like Emacs' better-jumper / evil-jump-backward.
+" No remapping needed; just don't override them elsewhere.
+" (The previous C-o = PreviousTab / C-i = NextTab IDE defaults are
+"  intentionally left unmapped here so jump history takes priority.)
+
+" ── Go-to-definition in other window (gw) ───────────────────
+" IdeaVim equivalent: open definition in a split
+nnoremap gw :action GotoDeclaration<CR>
+" (use <C-w>gd or the action below to get "other window" behaviour)
+nnoremap gW :action QuickImplementations<CR>
+
+" ── Code navigation / LSP-equivalents ───────────────────────
+nnoremap gr :action FindUsages<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gD :action GotoTypeDeclaration<CR>
+nnoremap K  :action QuickJavaDoc<CR>
+
+" ── Structural editing (smartparens → IdeaVim) ──────────────
+" M-j  sp-forward-barf-sexp   → unwrap/barf forward
+" M-ø  sp-forward-slurp-sexp  → slurp forward
+" M-k  sp-backward-slurp-sexp → slurp backward
+" M-l  sp-backward-barf-sexp  → barf backward
+" IdeaVim has no sexp plugin, so bind to ParEdit-style IDE actions.
+" If you install the 'IntelliJ IDEA Community / IdeaVim-EasyMotion'
+" or 'Cursive' plugin, replace with their specific actions.
+nnoremap <M-j> :action MoveStatementDown<CR>
+nnoremap <M-l> :action MoveStatementUp<CR>
+vnoremap <M-j> :action MoveStatementDown<CR>
+vnoremap <M-l> :action MoveStatementUp<CR>
+
+" ── Format on save (mirrors +format-on-save-enabled-modes) ──
+" Enable via IDE: Settings → Tools → Actions on Save → Reformat code
+" Nothing to set in .ideavimrc, but noted here for reference.
+
+" ── Leader key (Space, like Doom Emacs SPC) ─────────────────
+let mapleader = " "
+
+" File
+nnoremap <leader>ff :action GotoFile<CR>
+nnoremap <leader>fr :action RecentFiles<CR>
+nnoremap <leader>fs :action SaveAll<CR>
+
+" Buffer / Editor
+nnoremap <leader>bd :action CloseContent<CR>
+nnoremap <leader>bb :action RecentFiles<CR>
+nnoremap <leader>bn :action NextTab<CR>
+nnoremap <leader>bp :action PreviousTab<CR>
+
+" Search (mirrors SPC s)
+nnoremap <leader>sp :action FindInPath<CR>
+nnoremap <leader>ss :action GotoSymbol<CR>
+nnoremap <leader>sb :action FindInCurrentFile<CR>
+
+" Code (mirrors SPC c)
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+nnoremap <leader>cr :action RenameElement<CR>
+nnoremap <leader>cf :action ReformatCode<CR>
+nnoremap <leader>cd :action ShowErrorDescription<CR>
+
+" Git (mirrors SPC g)
+nnoremap <leader>gg :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>gb :action Annotate<CR>
+nnoremap <leader>gl :action Vcs.ShowTabbedFileHistory<CR>
+
+" Project / Window (mirrors SPC w / SPC p)
+nnoremap <leader>wv :action SplitVertically<CR>
+nnoremap <C-x>3 :action SplitVertically<CR>
+nnoremap <leader>ws :action SplitHorizontally<CR>
+nnoremap <C-x>2 :action SplitHorizontally<CR>
+nnoremap <leader>wd :action Unsplit<CR>
+nnoremap <C-x>1 :action UnsplitAll<CR>
+nnoremap <C-x>0 :action CloseContent<CR>
+nnoremap <leader>op :action ActivateProjectToolWindow<CR>
+nnoremap <leader>ot :action ActivateTerminalToolWindow<CR>
