@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Point SSH_AUTH_SOCK at the gpg-agent socket for GUI apps -->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.sindrestephansen.gpg-ssh-auth-sock</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/sh</string>
+        <string>-c</string>
+        <string>/opt/homebrew/bin/gpgconf --launch gpg-agent; launchctl setenv SSH_AUTH_SOCK "$(/opt/homebrew/bin/gpgconf --list-dirs agent-ssh-socket)"</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>

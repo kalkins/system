@@ -1,0 +1,7 @@
+distros: [macOS]
+dependencies:
+  macOS:
+    main:
+    - FelixKratz/formulae/borders
+    cask:
+    - nikitabobko/tap/aerospace

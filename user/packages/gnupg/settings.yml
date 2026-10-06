@@ -1,0 +1,13 @@
+dependencies:
+  default:
+    main:
+    - gnupg
+  macOS:
+    main:
+    - gnupg
+    - pinentry-mac
+os:
+  linux:
+    dotfiles_dir: dotfiles-linux
+  macos:
+    dotfiles_dir: dotfiles-macos
