@@ -1,0 +1,4 @@
+# Tools needed to run the setup script on macOS.
+# Program dependencies are declared per package in packages/*/settings.yml
+brew "stow"
+brew "uv"
