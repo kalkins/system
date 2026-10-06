@@ -1,0 +1,8 @@
+[project]
+name = "system-setup"
+version = "0.1.0"
+description = "Install and set up packages and dotfiles"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml",
+]

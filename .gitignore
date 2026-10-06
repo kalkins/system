@@ -9,6 +9,10 @@ __pycache__/
 *.swp
 
 
+### uv ###
+user/.venv/
+
+
 ### Packages ###
 user/packages/vim/dotfiles/.vim/undodir/*
 
