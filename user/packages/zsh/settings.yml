@@ -4,3 +4,8 @@ dependencies:
     - fzf
     - zsh
 submodules: true
+os:
+  linux:
+    dotfiles_dir: dotfiles-linux
+  macos:
+    dotfiles_dir: dotfiles-macos
