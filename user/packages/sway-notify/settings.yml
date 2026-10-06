@@ -1,3 +1,4 @@
+distros: [arch, ubuntu, fedora]
 dependencies:
   default:
     main:

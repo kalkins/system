@@ -19,4 +19,5 @@ dependencies:
     - ttf-nerd-fonts-symbols-mono
     - ty
     - uv
+  macOS: {}
 submodules: true
