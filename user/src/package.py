@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, Self, Set
 
 import yaml
-from config import Distro, DistroSpecific, PackageSource, SystemTag
+from config import OS, Distro, DistroSpecific, PackageSource, SystemTag
 
 logger = logging.getLogger(__file__)
 
@@ -78,6 +78,7 @@ class Package:
     has_submodules: bool
     common_deployment: PackageDeploymentDetails
     tagged_deployment: Dict[SystemTag, PackageDeploymentDetails]
+    os_deployment: Dict[OS, PackageDeploymentDetails]
 
     def __str__(self):
         return self.name
@@ -118,6 +119,10 @@ class Package:
                     data["tags"][tag]
                 )
                 for tag in data.get("tags", [])
+            },
+            os_deployment={
+                OS.parse_require(os): PackageDeploymentDetails.parse(data["os"][os])
+                for os in data.get("os", [])
             },
         )
 

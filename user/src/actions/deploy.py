@@ -1,4 +1,5 @@
 import logging
+from typing import Dict, Set
 
 from config import AppConfig, CommandsConfig
 from package import Package, PackageDependencies
@@ -125,6 +126,24 @@ def _undeploy_dotfiles(
         )
 
 
+def _deploy_variants[K](
+    props: AppProperties,
+    config: AppConfig,
+    package: Package,
+    variants: Dict[K, PackageDeploymentDetails],
+    active: Set[K],
+) -> None:
+    for key, details in variants.items():
+        print()
+        if key in active:
+            print(f"Deploying {package.name} - {key}")
+            _install_dependencies(props, config, package, details)
+            _deploy_dotfiles(props, package, details)
+        else:
+            print(f"Removing {package.name} - {key}")
+            _undeploy_dotfiles(props, package, details)
+
+
 def deploy(props: AppProperties, config: AppConfig) -> None:
     all_packages = get_packages(props.packages_dir)
 
@@ -139,9 +158,10 @@ def deploy(props: AppProperties, config: AppConfig) -> None:
         print(f"Removing {package.name}")
         _undeploy_dotfiles(props, package, package.common_deployment)
 
-        for tag, details in package.tagged_deployment.items():
-            print(f"Removing {package.name} - {tag}")
-            _undeploy_dotfiles(props, package, details)
+        for variants in [package.tagged_deployment, package.os_deployment]:
+            for key, details in variants.items():
+                print(f"Removing {package.name} - {key}")
+                _undeploy_dotfiles(props, package, details)
 
     for package in selected_packages:
         print()
@@ -150,12 +170,9 @@ def deploy(props: AppProperties, config: AppConfig) -> None:
         _run_extra_setup(props, package)
         _deploy_dotfiles(props, package, package.common_deployment)
 
-        for tag, details in package.tagged_deployment.items():
-            print()
-            if tag in config.tags:
-                print(f"Deploying {package.name} - {tag}")
-                _install_dependencies(props, config, package, details)
-                _deploy_dotfiles(props, package, details)
-            else:
-                print(f"Removing {package.name} - {tag}")
-                _undeploy_dotfiles(props, package, details)
+        _deploy_variants(
+            props, config, package, package.tagged_deployment, config.tags
+        )
+        _deploy_variants(
+            props, config, package, package.os_deployment, {config.distro.os}
+        )

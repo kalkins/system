@@ -13,10 +13,38 @@ PackageSource = str
 DefaultPackageSource = "main"
 
 
+class OS(StrEnum):
+    Linux = "Linux"
+    MacOS = "macOS"
+
+    @classmethod
+    def parse(cls, input: str) -> Self | None:
+        for os in cls:
+            if input.lower() == os.value.lower():
+                return os
+        else:
+            return None
+
+    @classmethod
+    def parse_require(cls, input: str) -> Self:
+        if result := cls.parse(input):
+            return result
+        else:
+            raise ValueError(f"Invalid OS '{input}'")
+
+
 class Distro(StrEnum):
     Arch = "Arch"
     Ubuntu = "Ubuntu"
     Fedora = "Fedora"
+    MacOS = "macOS"
+
+    @property
+    def os(self) -> OS:
+        if self == Distro.MacOS:
+            return OS.MacOS
+        else:
+            return OS.Linux
 
     @classmethod
     def parse(cls, input: str) -> Self | None:
@@ -140,6 +168,20 @@ class CommandsConfig:
                             command="dnf",
                             args=["install"],
                             sudo=True,
+                        ),
+                    }
+                ),
+                Distro.MacOS: PackageManagerCommand(
+                    sources={
+                        DefaultPackageSource: ShellCommand(
+                            command="brew",
+                            args=["install"],
+                            sudo=False,
+                        ),
+                        "cask": ShellCommand(
+                            command="brew",
+                            args=["install", "--cask"],
+                            sudo=False,
                         ),
                     }
                 ),
