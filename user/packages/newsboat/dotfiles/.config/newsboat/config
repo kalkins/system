@@ -1,0 +1,16 @@
+auto-reload yes
+reload-time 120          # minutes
+reload-threads 8
+show-read-feeds yes
+prepopulate-query-feeds yes
+
+# vim-ish keys
+bind-key k down
+bind-key l up
+bind-key K next-feed articlelist
+bind-key L prev-feed articlelist
+bind-key g home
+bind-key G end
+
+macro , open-in-browser
+browser "xdg-open %u"
