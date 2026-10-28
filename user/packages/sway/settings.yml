@@ -15,6 +15,9 @@ dependencies:
     - swayidle
     - swaylock
     - waybar
+    - swaync
+    - gvfs
+    - libnotify
     - fuzzel
 tags:
   laptop:

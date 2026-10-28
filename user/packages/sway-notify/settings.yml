@@ -1,5 +1,0 @@
-distros: [arch, ubuntu, fedora]
-dependencies:
-  default:
-    main:
-    - mako

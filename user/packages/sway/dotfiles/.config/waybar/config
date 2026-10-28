@@ -5,6 +5,7 @@
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
     "modules-right": [
+        "custom/newsboat",
         "idle_inhibitor",
         "wireplumber#source",
         "wireplumber#sink",
@@ -24,7 +25,7 @@
             "activated": "",
             "deactivated": ""
         },
-        "tooltip": false,
+        "tooltip": false
     },
     "tray": {
         // "icon-size": 21,
@@ -63,7 +64,7 @@
         "format-disconnected": "No network  ⚠",
         "format-alt": "{ipaddr}",
         "tooltip-format": "{ifname} via {gwaddr}",
-        "tooltip-format-disconnected": "Disconnected",
+        "tooltip-format-disconnected": "Disconnected"
     },
     "bluetooth": {
         "format-on": "󰂯",
@@ -84,6 +85,7 @@
         "format": "{volume}%  󰍬",
         "format-muted": "󰍭",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "audioctl next source",
         "scroll-step": 5
     },
     "wireplumber#sink": {
@@ -92,6 +94,14 @@
         "format-muted": "",
         "format-icons": ["", "", ""],
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "audioctl next sink",
         "scroll-step": 5
+    },
+    "custom/newsboat": {
+        "exec": "~/.local/bin/newsboat-unread",
+        "return-type": "json",
+        "interval": 900,
+        "on-click": "ghostty newsboat",
+        "signal": 9
     }
 }
