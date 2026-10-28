@@ -2,3 +2,4 @@ dependencies:
   default:
     main:
     - git
+    - git-delta
