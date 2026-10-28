@@ -1,0 +1,21 @@
+// Place your key bindings in this file to override the defaults
+[
+    // Window focus: C-j← C-k↓ C-l↑ C-ø→
+    { "key": "ctrl+j", "command": "workbench.action.focusLeftGroup",  "when": "editorTextFocus && vim.mode == 'Normal'" },
+    { "key": "ctrl+k", "command": "workbench.action.focusBelowGroup", "when": "editorTextFocus && vim.mode == 'Normal'" },
+    { "key": "ctrl+l", "command": "workbench.action.focusAboveGroup", "when": "editorTextFocus && vim.mode == 'Normal'" },
+    { "key": "ctrl+[Semicolon]", "command": "workbench.action.focusRightGroup", "when": "editorTextFocus && vim.mode == 'Normal'" },
+
+    // Move line: M-j↓ M-l↑ (mirrors your IdeaVim MoveStatement*)
+    { "key": "alt+j", "command": "editor.action.moveLinesDownAction", "when": "editorTextFocus && vim.mode =~ /Normal|Visual/" },
+    { "key": "alt+l", "command": "editor.action.moveLinesUpAction",   "when": "editorTextFocus && vim.mode =~ /Normal|Visual/" },
+
+    // Tab nav (your C-M-j / C-M-ø)
+    { "key": "ctrl+alt+j", "command": "workbench.action.previousEditor", "when": "editorTextFocus && vim.mode == 'Normal'" },
+    { "key": "ctrl+alt+[Semicolon]", "command": "workbench.action.nextEditor", "when": "editorTextFocus && vim.mode == 'Normal'" },
+
+    // vertico-style quickpick nav: C-k↓ C-l↑ C-ø accept (may need tweaking, see caveats)
+    { "key": "ctrl+k", "command": "list.focusDown", "when": "inQuickOpen" },
+    { "key": "ctrl+l", "command": "list.focusUp",   "when": "inQuickOpen" },
+    { "key": "ctrl+[Semicolon]", "command": "workbench.action.acceptSelectedQuickOpenItem", "when": "inQuickOpen" }
+]

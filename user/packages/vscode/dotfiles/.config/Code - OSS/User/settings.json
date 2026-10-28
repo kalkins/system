@@ -1,0 +1,484 @@
+{
+  "editor.minimap.enabled": false,
+  // ── Plugin equivalents ──────────────────────────────────
+  "vim.surround": true, // vim-surround
+  "vim.highlightedyank.enable": true, // highlightedyank
+  "vim.useSystemClipboard": true, // clipboard=unnamedplus
+  // gc commenting is built into VSCodeVim. J-join ≈ ideajoin natively.
+  "vim.incsearch": true,
+  "vim.ignorecase": true,
+  "vim.smartcase": true,
+  "vim.leader": "<space>",
+  "editor.lineNumbers": "relative", // number + relativenumber
+  "editor.cursorSurroundingLines": 5, // scrolloff=5
+  // ── Nordic motions: j=← k=↓ l=↑ ø=→ (logical lines) ─────
+  // Your emacs used gj/gk (visual lines); see question 3 below.
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "j"
+      ],
+      "after": [
+        "h"
+      ]
+    },
+    {
+      "before": [
+        "k"
+      ],
+      "after": [
+        "j"
+      ]
+    },
+    {
+      "before": [
+        "l"
+      ],
+      "after": [
+        "k"
+      ]
+    },
+    {
+      "before": [
+        "ø"
+      ],
+      "after": [
+        "l"
+      ]
+    },
+    // h freed → cycle line-number style (needs Settings Cycler ext)
+    {
+      "before": [
+        "h"
+      ],
+      "commands": [
+        "settings.cycle.lineNumbers"
+      ]
+    },
+    // g-nav / LSP
+    {
+      "before": [
+        "g",
+        "w"
+      ],
+      "commands": [
+        "editor.action.revealDefinitionAside"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "editor.action.referenceSearch.trigger"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "D"
+      ],
+      "commands": [
+        "editor.action.goToTypeDefinition"
+      ]
+    },
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    // ]e/[e diagnostics, ]b/[b history
+    {
+      "before": [
+        "]",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.prev"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "b"
+      ],
+      "commands": [
+        "workbench.action.navigateForward"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "b"
+      ],
+      "commands": [
+        "workbench.action.navigateBack"
+      ]
+    },
+    // Leader (SPC) — mirrors your .ideavimrc
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "f"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "r"
+      ],
+      "commands": [
+        "workbench.action.openRecent"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.files.saveAll"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "d"
+      ],
+      "commands": [
+        "workbench.action.closeActiveEditor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "b"
+      ],
+      "commands": [
+        "workbench.action.showAllEditors"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "n"
+      ],
+      "commands": [
+        "workbench.action.nextEditor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "p"
+      ],
+      "commands": [
+        "workbench.action.previousEditor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "p"
+      ],
+      "commands": [
+        "workbench.action.findInFiles"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.showAllSymbols"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "b"
+      ],
+      "commands": [
+        "actions.find"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c",
+        "a"
+      ],
+      "commands": [
+        "editor.action.quickFix"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c",
+        "r"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c",
+        "f"
+      ],
+      "commands": [
+        "editor.action.formatDocument"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c",
+        "d"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "g"
+      ],
+      "commands": [
+        "workbench.view.scm"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "b"
+      ],
+      "commands": [
+        "gitlens.toggleFileBlame"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "l"
+      ],
+      "commands": [
+        "gitlens.showQuickFileHistory"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "w",
+        "v"
+      ],
+      "commands": [
+        "workbench.action.splitEditor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "w",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.splitEditorDown"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "w",
+        "d"
+      ],
+      "commands": [
+        "workbench.action.joinTwoGroups"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "o",
+        "p"
+      ],
+      "commands": [
+        "workbench.view.explorer"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "o",
+        "t"
+      ],
+      "commands": [
+        "workbench.action.terminal.toggleTerminal"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "j"
+      ],
+      "after": [
+        "h"
+      ]
+    },
+    {
+      "before": [
+        "k"
+      ],
+      "after": [
+        "j"
+      ]
+    },
+    {
+      "before": [
+        "l"
+      ],
+      "after": [
+        "k"
+      ]
+    },
+    {
+      "before": [
+        "ø"
+      ],
+      "after": [
+        "l"
+      ]
+    }
+  ],
+  "vim.operatorPendingModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "j"
+      ],
+      "after": [
+        "h"
+      ]
+    },
+    {
+      "before": [
+        "k"
+      ],
+      "after": [
+        "j"
+      ]
+    },
+    {
+      "before": [
+        "l"
+      ],
+      "after": [
+        "k"
+      ]
+    },
+    {
+      "before": [
+        "ø"
+      ],
+      "after": [
+        "l"
+      ]
+    }
+  ],
+  // Settings Cycler ext (hoovercj.vscode-settings-cycler) powers `h`
+  "settings.cycle": [
+    {
+      "id": "lineNumbers",
+      "overrideWorkspaceSettings": false,
+      "values": [
+        {
+          "editor.lineNumbers": "relative"
+        },
+        {
+          "editor.lineNumbers": "on"
+        },
+        {
+          "editor.lineNumbers": "off"
+        }
+      ]
+    }
+  ],
+  "helm-ls.yamlls": {
+    "enabled": true,
+    "enabledForFilesGlob": "*.{yaml,yml}",
+    "diagnosticsLimit": 50,
+    "showDiagnosticsDirectly": false,
+    "path": "",
+    "config": {
+      "schemas": {
+        "kubernetes": "templates/**"
+      },
+      "completion": true,
+      "hover": true,
+      "schemaStore": {
+        "enable": false
+      }
+    }
+  },
+  "helm-ls.logLevel": "verbose",
+  "[yaml]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "keep",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.defaultColorDecorators": "never",
+    "editor.quickSuggestions": {
+      "strings": true,
+      "other": true,
+      "comments": false
+    }
+  },
+  "[helm]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "keep",
+  },
+  "editor.formatOnSave": true,
+}
