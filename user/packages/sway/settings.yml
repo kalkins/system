@@ -19,6 +19,7 @@ dependencies:
     - gvfs
     - libnotify
     - fuzzel
+    - yubikey-touch-detector
 tags:
   laptop:
     dotfiles_dir: dotfiles-laptop
